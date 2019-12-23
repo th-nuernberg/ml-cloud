@@ -1,0 +1,58 @@
+version: '3'
+services:
+  controller:
+    build: Controller
+    image: controller
+    environment:
+     - PYTHONUNBUFFERED=1
+    ports:
+     - "5000:5000"
+    links:
+      - "broker:broker"
+      - "mongo:mongo"
+  broker:
+    image: eclipse-mosquitto
+    ports:
+     - "1883:1883"
+  mongo:
+    image: mongo:latest
+    container_name: "mongo"
+    environment:
+     - MONGO_DATA_DIR=/data/db
+     - MONGO_LOG_DIR=/dev/null
+     - MONGODB_USER="user" 
+     - MONGODB_PASS="pass"
+    ports:
+     - 27017:27017
+    command: mongod
+    logging:
+      driver: none 
+  worker:
+    build: Worker
+    image: worker
+    links:
+      - "broker:broker"
+      - "controller:controller"
+    environment:
+     - PYTHONUNBUFFERED=1
+    deploy:
+      mode: global # Run one instance on every worker
+      placement:   # except
+        constraints:
+          - node.role == worker # the controller/manager
+      restart_policy:
+        condition: any
+        delay: 5s
+  gui:
+    build: WebGUI
+    image: webgui
+    ports:
+      - "4200:80"
+    deploy:
+      mode: global # Run one instance on every worker
+      placement:   # except
+        constraints:
+          - node.role == worker # the controller/manager
+      restart_policy:
+        condition: any
+        delay: 5s

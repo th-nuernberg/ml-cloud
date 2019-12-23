@@ -1,0 +1,147 @@
+<div class="wrapper">
+    <div class="timeline">
+        <app-timeline [childConfig]="parentConfig"></app-timeline>
+    </div>
+    <div class="contentBox">
+        <div class="pre-scrollable cardPreScrollable">
+            <div class="card outerCard">
+                <div class="card-header">Configure your selected architecture
+                </div>
+                <div class="card-body">
+
+                    <div class="pre-scrollable innerPreScrollable">
+                        <div class="card innerCard">
+                            <div class="card-body">
+                                <div id="parameterDiv" *ngIf="parameters">
+                                    <div *ngIf="createArchConfigMode">
+                                        <label class="archNameLabel">Selected Architecture: {{arch.internal_name}}</label>
+                                        <div class="input-group mb-3 nameFormControl">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="configNameAddon">Config Name</span>
+                                            </div>
+                                            <input type="text" class="form-control" style="height: auto;" placeholder="Name" aria-label="Name" aria-describedby="configNameAddon" [(ngModel)]="archConfigName">
+                                        </div>
+                                        <div *ngFor="let parameter of parameters | keyvalue; index as i" class="range">
+                                            <form>
+                                                <div *ngIf="parameters[parameter.key].validation.numeric.type == 'bool'; else slider">
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="basic-addon[i]">{{parameter.key}}:</span>
+                                                        </div>
+
+                                                        <input type="text" disabled="true" class="form-control" [placeholder]="parameters[parameter.key].default" [(ngModel)]="parameterDefaults[parameter.key]" [attr.value]="parameterDefaults[parameter.key]" [attr.aria-label]="parameter.key | uppercase" aria-describedby="basic-addon[i]" [name]="parameter.key">
+                                                    </div>
+                                                    <div class="custom-control custom-checkbox {{parameter.key}}">
+                                                        <input type="checkbox" [id]="parameter.key" [(ngModel)]="parameterDefaults[parameter.key]" [attr.value]="parameterDefaults[parameter.key]" [name]="parameter.key" class="custom-control-input">
+                                                        <label class="custom-control-label" for="{{parameter.key}}"></label>
+                                                    </div>
+                                                </div>
+                                                <ng-template #slider>
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="basic-addon2">{{parameter.key}}:</span>
+                                                        </div>
+                                                        <input type="number" class="form-control" [(ngModel)]="parameterDefaults[parameter.key]" [name]="parameter.key" [attr.value]="parameterDefaults[parameter.key]" aria-describedby="basic-addon[i]" [step]="parameters[parameter.key].validation.numeric.low">
+                                                    </div>
+                                                    <div [class]="parameter.key">
+                                                        {{parameters[parameter.key].validation.numeric.low}}
+                                                        <input type="range" [id]="parameter.key" [name]="parameter.key" [(ngModel)]="parameterDefaults[parameter.key]" [attr.min]="parameters[parameter.key].validation.numeric.low" [attr.max]="parameters[parameter.key].validation.numeric.high" [attr.value]="parameterDefaults[parameter.key]" [step]="parameters[parameter.key].validation.numeric.low" class="custom-range">
+                                                        {{parameters[parameter.key].validation.numeric.high}}
+                                                    </div>
+                                                </ng-template>
+                                            </form>
+                                        </div>
+                                        <button class="btn btn-outline-secondary submitButton" [disabled]="!archConfigName" (click)="saveNewArchConfig()">Save</button>
+                                    </div>
+                                    <div *ngIf="saveArchConfigMode">
+                                        <label class="archNameLabel">Selected Config: {{archConfig.architecture_config_name}}</label><br>
+                                        <div class="input-group mb-3 nameFormControl">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="basic-addon1">Config Name</span>
+                                            </div>
+                                            <input type="text" [disabled]="!editMode" class="form-control" style="height: auto;" placeholder="Name" aria-label="Name" aria-describedby="basic-addon1" [attr.value]="archConfig['architecture_config_name']" [(ngModel)]="archConfig['architecture_config_name']">
+                                        </div>
+                                        <div *ngFor="let parameter of parameters | keyvalue; index as i" class="range">
+
+                                            <div *ngIf="parameters[parameter.key].validation.numeric.type == 'bool'; else slider">
+                                                <div class="input-group mb-3">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text" id="basic-addon2">{{parameter.key}}:</span>
+                                                    </div>
+                                                    <input type="text" disabled="true" class="form-control" [placeholder]="parameterValues[parameter.key]" [attr.value]="parameterValues[parameter.key]" [attr.aria-label]="parameter.key | uppercase" aria-describedby="basic-addon2" [(ngModel)]="parameterValues[parameter.key]">
+                                                </div>
+                                                <div class="{{parameter.key}} custom-control custom-checkbox">
+                                                    <input type="checkbox" [disabled]="!editMode" class="custom-control-input" [id]="parameter.key" [checked]="parameterValues[parameter.key] == true" [(ngModel)]="parameterValues[parameter.key]" [attr.value]="parameterValues[parameter.key]">
+                                                    <label class="custom-control-label" for="{{parameter.key}}"></label>
+                                                </div>
+                                            </div>
+                                            <ng-template #slider>
+                                                <div class="input-group mb-3">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text" id="basic-addon2">{{parameter.key}}:</span>
+                                                    </div>
+                                                    <input type="number" [disabled]="!editMode" class="form-control" [placeholder]="parameterValues[parameter.key]" [attr.value]="parameterValues[parameter.key]" [attr.aria-label]="parameter.key | uppercase" aria-describedby="basic-addon2" [(ngModel)]="parameterValues[parameter.key]" [step]="parameters[parameter.key].validation.numeric.low">
+                                                </div>
+                                                <div [class]="parameter.key">
+                                                    {{parameters[parameter.key].validation.numeric.low}}
+                                                    <input type="range" [disabled]="!editMode" [id]="parameter.key" [name]="parameter.key" [attr.min]="parameters[parameter.key].validation.numeric.low" [attr.max]="parameters[parameter.key].validation.numeric.high" [attr.value]="parameterValues[parameter.key]" [step]="parameters[parameter.key].validation.numeric.low" [(ngModel)]="parameterValues[parameter.key]" class="custom-range">
+                                                    {{parameters[parameter.key].validation.numeric.high}}
+                                                </div>
+                                            </ng-template>
+                                        </div>
+                                        <button class="btn btn-outline-secondary" (click)="onEdit()" *ngIf="!editMode">Edit</button>
+                                        <button class="btn btn-outline-secondary" (click)="onCancel()" *ngIf="editMode">Cancel</button>
+                                        <button class="btn btn-outline-secondary" (click)="onSaveChanges()" *ngIf="editMode">Save Changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END LEFT PRE SCROLLABLE -->
+
+                    <!-- START RIGHT PRE SCROLLABLE -->
+                    <div class="pre-scrollable infoBox innerPreScrollable" *ngIf="parameters">
+                        <div class="card innerCard">
+                            <div class="card-body">
+                                <div *ngIf="createArchConfigMode">
+                                    <h2>Selected Architecture: {{arch.internal_name}}</h2><br>
+                                    <div *ngFor="let parameter of parameters | keyvalue; index as i">
+                                        <strong>Default {{parameter.key}}: {{parameters[parameter.key].default}}</strong><br>
+                                    </div>
+                                    <br>
+                                    {{arch.desc}}<br>
+                                    <div *ngFor="let parameter of parameters | keyvalue; index as i">
+                                        {{parameters[parameter.key].desc}}<br>
+                                    </div>
+                                </div>
+                                <div *ngIf="saveArchConfigMode">
+                                    <h2>Selected Config: {{archConfig.architecture_config_name}}</h2><br>
+                                    <strong>Architecture: {{archConfig.architecture_id}}</strong><br>
+                                    <strong>Has trained Model: {{archConfig.has_trained_model}}</strong><br>
+                                    <div *ngFor="let parameter of parameters | keyvalue; index as i">
+                                        <strong>Default {{parameter.key}}: {{parameters[parameter.key].default}}</strong><br>
+                                    </div>
+                                    <br>
+                                    {{archConfigArchDesc}}<br>
+                                    <div *ngFor="let parameter of parameters | keyvalue; index as i">
+                                        {{parameters[parameter.key].desc}}<br>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END RIGHT PRE SCROLLABLE -->
+
+                    <div class="checkSelectedDiv">
+                        <label>Selected Parameters</label>
+                        <input class="form-control" type="text" placeholder="Nothing Selected" [(ngModel)]="paramString" readonly>
+                    </div>
+                    <div class="directionButton">
+                        <a class="btn btn-outline-secondary" href="training/architecture" role="button">Back</a>
+                        <a class="btn btn-primary" href="training/check" role="button" [class.disabled]="!paramString">Next</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

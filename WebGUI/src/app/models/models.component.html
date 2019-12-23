@@ -1,0 +1,222 @@
+<head>
+</head>
+
+<div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div class="pre-scrollable listPreScrollable">
+        <div class="list-group">
+            <div *ngIf="archs">
+                <button type="button" class="list-group-item list-group-item-action active"><i class="fas fa-code-branch"></i> Architectures
+                </button>
+                <div *ngFor="let architecture of archs" [id]="architecture.internal_name" (click)="onArchitectureSelect(architecture.internal_name)" class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">{{architecture.internal_name}}</h5>
+                    </div>
+                    <p class="mb-1"><span>Batch Size: </span>{{architecture.parameters.batch_size.default}}
+                        <span>Validation Split: </span>{{architecture.parameters.validation_split.default}}
+                        <span>Epochs: </span>{{architecture.parameters.epochs.default}}
+                        <span>Shuffle: </span>{{architecture.parameters.shuffle.default}}</p>
+                    <small>Select for more info and configuration.</small>
+                </div>
+            </div>
+            <div *ngIf="archConfigs">
+                <button type="button" class="list-group-item list-group-item-action active"><i class="fas fa-code-branch"></i> Configs
+                </button>
+                <div *ngIf="archConfigs.length<=0">
+                    <button type="button" class="list-group-item list-group-item-action" disabled="true">No Configs</button>
+                </div>
+                <div *ngFor="let archConfig of archConfigs" [id]="archConfig.architecture_config_id" (click)="onModelSelect(archConfig.architecture_config_id)" class="list-group-item list-group-item-action flex-column align-items-start" [class.disabled]="editMode">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">{{archConfig.architecture_config_name}}</h5> <i class="fas fa-trash-alt" (click)="openModal('deleteConfigModal', archConfig.architecture_config_id, archConfig.architecture_config_name, '')"></i>
+                        <!-- OLD CLICK EVENT (click)="onDeleteConfig(archConfig.architecture_config_id)"
+                        -->
+
+                    </div>
+                    <p class="mb-1">
+                        <span>Architecture: </span>{{archConfig.architecture_id}}
+                        <span>Batch Size: </span>{{archConfig.parameters.batch_size}}
+                        <span>Validation Split: </span>{{archConfig.parameters.validation_split}}
+                        <span>Epochs: </span>{{archConfig.parameters.epochs}}
+                        <span>Shuffle: </span>{{archConfig.parameters.shuffle}}
+                    </p>
+                    <small>Select for more info and configuration.</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- /sidebar -->
+
+    <!-- Page Content -->
+
+    <div class="pre-scrollable cardPreScrollable">
+        <div class="card text-center outerCard">
+            <div class="card-header" *ngIf="archMode && arch">{{arch.internal_name | uppercase}} INFORMATION
+            </div>
+            <div class="card-header" *ngIf="configMode && archConfig">{{archConfig.architecture_config_name | uppercase}} INFORMATION
+            </div>
+            <div class="card-body">
+                <div id="uploadButtonDiv" *ngIf="(!archMode) && (!configMode)">
+                    <i class="fas fa-code-branch"></i><br>
+                    <div style="margin-top: 20px;">
+                        Select an architecture or model from the sidebar to get information and/or create a new model by configuring an architectures parameters.
+                    </div>
+                    <br>
+                </div>
+
+                <!--- LEFT SIDE ---->
+                <div class="pre-scrollable infoBox innerPreScrollable" *ngIf="archMode || configMode">
+                    <div class="card innerCard">
+                        <div class="card-body">
+                            <div *ngIf="archMode && arch">
+                                <h2>Selected Architecture: {{arch.internal_name}}</h2><br>
+                                <div *ngFor="let parameter of parameters | keyvalue; index as i">
+                                    <strong>Default {{parameter.key}}: {{parameters[parameter.key].default}}</strong><br>
+                                </div>
+                                <br>
+                                {{arch.desc}}<br>
+                                <!--                                {{arch.parameters.batch_size.desc}}<br>-->
+                                <div *ngFor="let parameter of parameters | keyvalue; index as i">
+                                    {{parameters[parameter.key].desc}}<br>
+                                </div>
+                            </div>
+                            <div *ngIf="configMode && archConfig">
+                                <h2>Selected Config: {{archConfig.architecture_config_name}}</h2><br>
+                                <strong>Architecture: {{archConfig.architecture_id}}</strong><br>
+                                <strong>Has trained Model: {{archConfig.has_trained_model}}</strong><br>
+                                <div *ngFor="let parameter of parameters | keyvalue; index as i">
+                                    <strong>Default {{parameter.key}}: {{parameters[parameter.key].default}}</strong><br>
+                                </div>
+                                <br>
+                                {{archConfigArchDesc}}<br>
+                                <div *ngFor="let parameter of parameters | keyvalue; index as i">
+                                    {{parameters[parameter.key].desc}}<br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END LEFT SIDE -->
+
+                <!-- RIGHT SIDE -->
+                <div class="pre-scrollable innerPreScrollable" *ngIf="archMode || configMode">
+                    <div class="card innerCard">
+                        <div class="card-body">
+                            <div class="parameterDiv">
+                                <h3>Create a configuration</h3>
+                                <div *ngIf="archMode" class="architectureConfig">
+                                    <div class="input-group mb-3 nameFormControl">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1">Name</span>
+                                        </div>
+                                        <input type="text" class="form-control textInput" style="height: auto;" placeholder="Name" aria-label="Name" aria-describedby="basic-addon1" [(ngModel)]="newConfigName">
+                                    </div>
+                                    <div *ngFor="let parameter of parameters | keyvalue; index as i" class="range">
+                                        <div *ngIf="parameters[parameter.key].validation.numeric.type == 'bool'; else slider">
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="basic-addon[i]">{{parameter.key}}:</span>
+                                                </div>
+                                                <input type="text" disabled="true" class="form-control" [placeholder]="parameters[parameter.key].default" [(ngModel)]="parameterDefaults[parameter.key]" [attr.value]="parameterDefaults[parameter.key]" [attr.aria-label]="parameter.key | uppercase" aria-describedby="basic-addon[i]">
+                                            </div>
+                                            <div class="custom-control custom-checkbox {{parameter.key}}">
+                                                <input type="checkbox" class="custom-control-input" [id]="parameter.key" [name]="parameter.key" [(ngModel)]="parameterDefaults[parameter.key]" [attr.value]="parameterDefaults[parameter.key]">
+                                                <label class="custom-control-label" for="{{parameter.key}}"></label>
+                                            </div>
+                                        </div>
+                                        <ng-template #slider>
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="basic-addon2">{{parameter.key}}:</span>
+                                                </div>
+                                                <input type="number" class="form-control" [placeholder]="parameters[parameter.key].default" [(ngModel)]="parameterDefaults[parameter.key]" [attr.value]="parameterDefaults[parameter.key]" [attr.aria-label]="parameter.key | uppercase" aria-describedby="basic-addon2" [step]="parameters[parameter.key].validation.numeric.low">
+                                            </div>
+                                            <div [class]="parameter.key">
+                                                {{parameters[parameter.key].validation.numeric.low}}
+                                                <!--(ngModelChange)="onChange()"-->
+                                                <input type="range" [id]="parameter.key" class="custom-range" [name]="parameter.key" [(ngModel)]="parameterDefaults[parameter.key]" [attr.min]="parameters[parameter.key].validation.numeric.low" [attr.max]="parameters[parameter.key].validation.numeric.high" [attr.value]="parameterDefaults[parameter.key]" [step]="parameters[parameter.key].validation.numeric.low">
+                                                {{parameters[parameter.key].validation.numeric.high}}
+                                            </div>
+                                        </ng-template>
+                                    </div>
+                                    <button class="btn btn-outline-secondary" id="saveConfig" (click)="saveNewConfig()" [disabled]="!newConfigName">Save</button>
+                                </div>
+                                <div *ngIf="configMode" class="architectureConfig">
+                                    <div class="input-group mb-3 nameFormControl">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1">Name</span>
+                                        </div>
+                                        <input type="text" [disabled]="!editMode" class="form-control textInput" style="height:auto;" placeholder="Name" aria-label="Name" aria-describedby="basic-addon1" [attr.value]="archConfig['architecture_config_name']" [(ngModel)]="archConfig['architecture_config_name']">
+                                    </div>
+                                    <div *ngFor="let parameter of parameters | keyvalue; index as i" class="range">
+
+                                        <div *ngIf="parameters[parameter.key].validation.numeric.type == 'bool'; else slider">
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="basic-addon2">{{parameter.key}}:</span>
+                                                </div>
+                                                <input type="text" disabled="true" class="form-control" [placeholder]="parameterValues[parameter.key]" [attr.value]="parameterValues[parameter.key]" [attr.aria-label]="parameter.key | uppercase" aria-describedby="basic-addon2" [(ngModel)]="parameterValues[parameter.key]">
+                                            </div>
+                                            <div class="custom-control custom-checkbox {{parameter.key}}">
+                                                <input type="checkbox" class="custom-control-input" [disabled]="!editMode" class="custom-control-input" [id]="parameter.key" [checked]="parameterValues[parameter.key] == true" [(ngModel)]="parameterValues[parameter.key]" [attr.value]="parameterValues[parameter.key]">
+                                                <label class="custom-control-label" for="{{parameter.key}}"></label>
+                                            </div>
+                                        </div>
+                                        <ng-template #slider>
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="basic-addon2">{{parameter.key}}:</span>
+                                                </div>
+                                                <input type="number" [disabled]="!editMode" class="form-control" [placeholder]="parameterValues[parameter.key]" [attr.value]="parameterValues[parameter.key] + '  (Default: ' + parameters[parameter.key].default + ')'" [attr.aria-label]="parameter.key | uppercase" aria-describedby="basic-addon2" [(ngModel)]="parameterValues[parameter.key]" [step]="parameters[parameter.key].validation.numeric.low">
+                                            </div>
+                                            <div [class]="parameter.key">
+                                                {{parameters[parameter.key].validation.numeric.low}}
+                                                <input type="range" [disabled]="!editMode" [id]="parameter.key" [name]="parameter.key" [attr.min]="parameters[parameter.key].validation.numeric.low" [attr.max]="parameters[parameter.key].validation.numeric.high" [attr.value]="parameterValues[parameter.key]" [step]="parameters[parameter.key].validation.numeric.low" [(ngModel)]="parameterValues[parameter.key]" class="custom-range">
+                                                {{parameters[parameter.key].validation.numeric.high}}
+                                            </div>
+                                        </ng-template>
+                                    </div>
+                                    <button class="btn btn-outline-secondary" (click)="onEdit()" *ngIf="!editMode">Edit</button>
+                                    <button class="btn btn-outline-secondary" (click)="onCancel()" *ngIf="editMode">Cancel</button>
+                                    <button class="btn btn-outline-secondary" (click)="onSaveChanges()" *ngIf="editMode">Save Changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END RIGHT SIDE -->
+            </div>
+        </div>
+
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+</div>
+
+<jw-modal id="deleteConfigModal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Delete Configuration?</h5>
+                <button type="button" class="close" (click)="closeModal('deleteConfigModal');">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete your Configuration {{this.modalService.name}}?<br>
+                    This might affect currently running jobs using this config.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal" (click)="closeModal('deleteConfigModal');">Close</button>
+                <button type="button" class="btn btn-primary" (click)="onDeleteConfig(this.modalService.objectID); closeModal('deleteConfigModal');">Delete</button>
+            </div>
+        </div>
+    </div>
+</jw-modal>
+
+<!--
+CLICK EVENT FOR BIN ICON
+(click)="openModal('deleteConfigModal', archConfig.architecture_config_id, archConfig.architecture_config_name, '')"
+.-->

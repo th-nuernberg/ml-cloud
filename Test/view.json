@@ -1,0 +1,11 @@
+{
+    "name": "name_der_view",
+    "column_names" : ["Last name", "First name", "SSN", "Test1", "Test2", "Test3", "Test4", "Final", "Grade"],
+    "data_columns": [
+        5, 6
+    ],
+    "target_columns": [
+        7
+    ],
+    "dataset_id" : ""
+}

@@ -1,0 +1,111 @@
+<div class="wrapper">
+    <div class="timeline">
+        <app-timeline3 [childView]="parentView"></app-timeline3>
+    </div>
+
+    <div class="contentBox">
+        <div class="pre-scrollable cardPreScrollable">
+            <div class="card outerCard">
+                <div class="loading-screen-wrapper" *ngIf="loading">
+                    <div class="loading-screen-icon">
+                        <i class="fas fa-spinner fa-pulse"></i>
+                    </div>
+                </div>
+
+                <div class="card-header">Create a view from <label>{{datasetName}}</label>
+                </div>
+                <div class="card-body">
+                    <div *ngIf="(datasetRest || viewRest)">
+                        <!-- table -->
+                        <div class="pre-scrollable" *ngIf="(data && createViewMode)">
+                            <table class="table table-striped">
+                                <thead [ngClass]="{noheaders: !hasHeaders}">
+                                    <tr>
+                                        <th scope="col" *ngFor="let w of headers">{{ w }}</th>
+                                    </tr>
+                                </thead>
+                                <tr *ngFor="let x of data; let i = index">
+                                    <td *ngFor="let y of x; let j = index;" id="{{i + '.' + j}}" class="{{j}}" [ngClass]="{'xColumn' : selectedXColumns.includes(j)}" (click)="selectColumn($event)">{{ y }}</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div id="carouselExampleIndicators" class="carousel slide" data-ride="false" *ngIf="data && createViewMode">
+                            <ol class="carousel-indicators" *ngIf="createViewMode">
+                                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active" (click)="changeCreateViewLevel('enterViewname')"></li>
+                                <li data-target="#carouselExampleIndicators" data-slide-to="1" (click)="changeCreateViewLevel('selectXColumns')"></li>
+                                <li data-target="#carouselExampleIndicators" data-slide-to="2" (click)="changeCreateViewLevel('checkAndSave')"></li>
+                            </ol>
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <div class="datasetNameInputs" [ngClass]="{'datasetNameInputs' : (!viewRest)}">
+                                        <div class="carouselContent">
+                                            <label *ngIf="createViewMode">Enter View Name: </label> <input class="form-control textInput" [(ngModel)]="viewName" *ngIf="createViewMode">
+                                        </div>
+                                        <button class="btn btn-outline-secondary sliderNextButton" (click)="changeCreateViewLevel('selectXColumns')" data-target="#carouselExampleIndicators" data-slide-to="1" [disabled]="!viewName">Next</button>
+                                    </div>
+                                </div>
+                                <div class="carousel-item">
+                                    <div class="carouselContent">
+                                        Select X Columns by clicking on columns.
+                                        <div *ngIf="createViewMode">
+                                            <span *ngFor="let x of selectedXColumns; let i = index;">x{{i+1}} = {{x}}; </span><br>
+                                            <span *ngFor="let y of selectedYColumn;">y = {{y}}; </span>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-outline-secondary sliderBackButton" (click)="changeCreateViewLevel('enterViewname')" data-target="#carouselExampleIndicators" data-slide-to="0">Back</button>
+                                    <button class="btn btn-outline-secondary sliderNextButton" (click)="changeCreateViewLevel('selectYColumns')" data-target="#carouselExampleIndicators" [disabled]="selectedXColumns?.length<=0" data-slide-to="2">Next</button>
+                                </div>
+                                <div class="carousel-item">
+                                    <div class="carouselContent">
+                                        Check if you are happy with your selections.<br>
+                                        View Name: <input class="form-control textInput" [(ngModel)]="viewName"><br>
+                                        Xs: <span *ngFor="let x of selectedXColumns; let i = index;">x{{i+1}} = {{x}}; </span>
+                                        <span>Y will be predicted.</span>
+                                    </div>
+                                    <button class="btn btn-outline-secondary sliderBackButton" (click)="changeCreateViewLevel('selectYColumns')" data-target="#carouselExampleIndicators" data-slide-to="1">Back</button>
+                                    <button class="btn btn-outline-secondary sliderNextButton submitButton" [disabled]="!viewName || selectedXColumns.length<=0" *ngIf="createViewMode" (click)="saveNewView()">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="saveViewMode">
+                            <div id="viewInfo">
+                                <button id="editViewButton" class="btn btn-outline-secondary" (click)="onEdit()">Edit</button>
+                                <label>View Name: </label> {{viewRest.view_name}}<br>
+                                <span>Labels will be predicted.</span>
+                            </div>
+                            <div class="pre-scrollable">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" *ngFor="let w of viewRest.data_columns; let i = index;">x{{ i+1 }}</th>
+                                        </tr>
+                                        <tr>
+                                            <th scope="col" *ngFor="let xh of xHeaders">{{ xh }}</th>
+                                        </tr>
+                                    </thead>
+                                    <tr *ngFor="let x of xColumnData; let i = index">
+                                        <td *ngFor="let y of x; let j = index;" id="{{i + '.' + j}}" class="{{j}}">{{ y }}</td>
+                                    </tr>
+
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- /table -->
+
+                    </div>
+
+                    <div class="checkSelectedDiv">
+                        <label>Selected View</label>
+                        <input class="form-control" type="text" placeholder="Nothing Selected" [(ngModel)]="viewString" readonly>
+                    </div>
+                    <div class="directionButton">
+                        <a class="btn btn-outline-secondary" href="evaluation/data" role="button">Back</a>
+                        <a class="btn btn-primary" href="evaluation/check" [class.disabled]="!viewString" role="button">Next</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,95 @@
+<div class="wrapper">
+    <div class="timeline">
+        <app-timeline [childArchitecture]="parentArchitecture"></app-timeline>
+    </div>
+    <div class="contentBox">
+        <div class="pre-scrollable cardPreScrollable">
+            <div class="card outerCard">
+                <div class="card-header">Select an architecture
+                </div>
+                <div class="card-body">
+
+                    <div class="pre-scrollable innerPreScrollable">
+                        <div class="card innerCard">
+                            <div class="card-body">
+                                <div *ngIf="archs">
+                                    <div class="list-group">
+                                        <button type="button" class="list-group-item list-group-item-action active">
+                                            Architectures
+                                        </button>
+                                        <div *ngFor="let arch of archs">
+                                            <button type="button" class="list-group-item list-group-item-action" [id]="arch.internal_name" (click)="onClickArch(arch.internal_name)">{{arch.internal_name}}</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div *ngIf="archConfigs">
+                                    <div class="list-group">
+                                        <button type="button" class="list-group-item list-group-item-action active">
+                                            Architecture Configs
+                                        </button>
+                                        <div *ngIf="archConfigs.length<=0">
+                                            <button type="button" class="list-group-item list-group-item-action" disabled="true">No Configs</button>
+                                        </div>
+                                        <div *ngFor="let archConfig of archConfigs">
+                                            <button type="button" class="list-group-item list-group-item-action" [id]="archConfig.architecture_config_id" (click)="onClickArchConfig(archConfig.architecture_config_id)">{{archConfig.architecture_config_name}}</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pre-scrollable infoBox innerPreScrollable">
+                        <div class="card innerCard">
+                            <div class="card-body">
+                                <div id="outerNoArchDiv">
+                                <div *ngIf="!arch && !archConfig && !archConfigArch" id="noArchOrConfigChosen">
+                                    <i class="fas fa-code-branch"></i><br>
+                                    <div style="margin-top: 20px;">
+                                        Select an architecture or config from the list to get information and use it for training.
+                                    </div>
+                                </div>
+                                </div>
+                                <div *ngIf="arch">
+                                    <h2>Selected Architecture: {{arch.internal_name}}</h2><br>
+                                    <div *ngFor="let parameter of arch.parameters | keyvalue; index as i">
+                                        <strong>{{parameter.key}}: {{arch.parameters[parameter.key].default}}</strong><br>
+                                    </div>
+                                    <br>
+                                    {{arch.desc}}<br>
+                                    <div *ngFor="let parameter of arch.parameters | keyvalue; index as i">
+                                        {{arch.parameters[parameter.key].desc}}<br>
+                                    </div>
+                                </div>
+                                <div *ngIf="archConfig && archConfigArch">
+                                    <h2>Selected Config: {{archConfig.architecture_config_name}}</h2><br>
+                                    <strong>Architecture: {{archConfig.architecture_id}}</strong><br>
+                                    <strong>Has trained Model: {{archConfig.has_trained_model}}</strong><br>
+                                    <div *ngFor="let parameter of archConfig.parameters | keyvalue; index as i">
+                                        <strong>{{parameter.key}}: {{archConfig.parameters[parameter.key]}}</strong><br>
+                                    </div>
+                                    <br>
+                                    {{archConfigArch.desc}}<br>
+                                    <div *ngFor="let parameter of archConfigArch.parameters | keyvalue; index as i">
+                                        {{archConfigArch.parameters[parameter.key].desc}}<br>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="checkSelectedDiv">
+                        <label>Selected Architecture</label>
+                        <input class="form-control" type="text" placeholder="Nothing Selected" [(ngModel)]="selectedName" readonly>
+                    </div>
+
+                    <div class="directionButton">
+                        <a class="btn btn-outline-secondary" href="training/label" role="button">Back</a>
+                        <a class="btn btn-primary" href="training/config" [class.disabled]="!selectedName" role="button">Next</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,73 @@
+ul.timeline {
+    list-style-type: none;
+    position: relative;
+}
+
+ul.timeline:before {
+    content: ' ';
+    background: #d4d9df;
+    display: inline-block;
+    position: absolute;
+    /*left: 29px;*/ /*timeline on left side of text*/
+    /*left: 209px;*/ /*timeline on right side of text*/
+    left: 99%; /*timeline on top of fieldset line */
+    /* left: 121px*/ /*timeline on top of fieldset line*/
+    width: 2px;
+    height: 100%;
+    z-index: 300;
+}
+
+ul.timeline > li :not(.lastTimelineItem){
+    margin-top: 20px;
+    margin-bottom: 17vh;
+    padding-left: 0px; /*timeline on top of fieldset line*/
+    margin-left: 0px; /*timeline on top of fieldset line */
+}
+
+.lastTimelineItem {
+    margin-top: 20px;
+    padding-left: 20px;
+    padding-left: 0px; /*timeline on top of fieldset line*/
+    margin-left: 0px; /*timeline on top of fieldset line */
+}
+
+ul.timeline > li:before {
+    content: ' ';
+    background: white;
+    display: inline-block;
+    position: absolute;
+    border-radius: 50%;
+    border: 3px solid #007bff;
+    /*left: 20px;*/ /*timeline on left side of text*/
+    /*left: 200px;*/ /* timeline on right side of text */
+    left: 95%; /*timeline on top of fieldset line*/
+    width: 20px;
+    height: 20px;
+    z-index: 400000;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+ul.timeline > li.selected:before {
+    width: 25px !important;
+    height: 25px!important;
+    border: 5px solid #007bff !important;
+    left: 94% !important;
+}
+
+.selected{
+    font-weight: bold;
+    font-size: 23px;
+}
+
+.notSelected{
+    font-weight: normal;
+    font-size: 16px;
+}
+
+a{
+ text-decoration: none;
+}
+
+ul.timeline {
+    padding-left: 38px;
+}

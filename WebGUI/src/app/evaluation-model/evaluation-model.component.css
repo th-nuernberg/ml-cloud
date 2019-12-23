@@ -1,0 +1,161 @@
+/* ------------- GENERAL --------------- */
+
+.timeline{
+    float:left;
+    display: inline-block;
+    vertical-align: top;
+    height: 77vh;
+    width: 15%;
+    min-height: 92vh;
+    transition: margin .25s ease-out;
+}
+
+fieldset {
+     display: inline-block;
+    vertical-align: top;
+    width:100% !important; /*timeline on right side of page */
+    overflow: auto;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 10px;
+    position:relative;
+    height: 91vh;
+}
+
+div.wrapper {
+    height: 100%;
+    padding-top: 64px;
+    padding-right: 30px;
+}
+
+.outerCard {
+    width: -moz-available;           /*Mozilla-based browsers */
+    width: -webkit-fill-available;   /* Webkit-based browsers */
+    width: stretch;
+    
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.pre-scrollable.cardPreScrollable {
+    vertical-align: top;
+    width: auto;
+    min-height: 88vh;
+    margin-top: 11px;
+    margin-left: 10px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    /* box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); */
+    
+    position: relative;
+}
+
+.card-body {
+    text-align:left;
+}
+
+.card-header {
+    text-align: center;
+}
+
+.checkSelectedDiv {
+    position: absolute;
+    bottom: 10px;
+    width: 93%;
+}
+
+.card.innerCard {
+    height: -webkit-fill-available;
+}
+
+.innerPreScrollable {
+    display: inline-block;
+    width: 47%;
+    max-height: 66vh;
+    height: 66vh;
+}
+
+.innerCard > .card-body {
+    padding: 0;
+    border: none;
+}
+
+.innerPreScrollable > .card.innerCard {
+    border: none;
+}
+
+.infoBox {
+    width:53%;
+}
+
+.pre-scrollable.infoBox.innerPreScrollable {
+    padding: 20px;
+}
+
+#noArchOrConfigChosen {
+    margin: 0 auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+@-moz-document url-prefix() {
+    
+    #outerNoArchDiv {
+        position:relative;
+    }
+    
+    #noArchOrConfigChosen {
+        position: absolute;
+        left: 50%;
+        text-align: center;
+        top:0;
+        bottom:0;
+        left:0;
+        right:0;
+    }
+     
+}
+
+/* -------------- BUTTONS ----------- */
+
+.directionButton {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}
+
+/* ------------ ICONS ------------ */
+
+#noArchOrConfigChosen > i.fas.fa-code-branch {
+    font-weight:900;
+    font-size: 169px;
+    color: grey;
+    padding:20px;
+    display: contents;
+}
+
+#noArchOrConfigChosen > i.fas.fa-code-branch:before {
+    text-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+/* ---------------- MEDIA QUERIES ----------------- */
+
+
+@media (max-width: 1592px) {
+    .checkSelectedDiv {
+        width: 92% !important;
+    }
+}
+
+@media (max-width: 1359px) {
+.checkSelectedDiv {
+    width: 90% !important;
+}
+}
+

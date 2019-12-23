@@ -1,0 +1,293 @@
+.timeline{
+    float:left;
+    display: inline-block;
+    vertical-align: top;
+    height: 77vh;
+    width: 15%;
+    min-height: 92vh;
+    transition: margin .25s ease-out;
+}
+
+fieldset {
+     display: inline-block;
+    vertical-align: top;
+    width:100% !important; /*timeline on right side of page */
+    overflow: auto;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 10px;
+    position:relative;
+    height: 91vh;
+}
+
+div.wrapper {
+    height: 100%;
+    padding-top: 64px;
+    padding-right: 30px;
+}
+
+.directionButton {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}
+
+.outerCard {
+    width: -moz-available;           /*Mozilla-based browsers */
+    width: -webkit-fill-available;   /* Webkit-based browsers */
+    width: stretch;
+    
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.pre-scrollable.cardPreScrollable {
+    vertical-align: top;
+    width: auto;
+    min-height: 88vh;
+    margin-top: 11px;
+    margin-left: 10px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    /* box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); */
+    
+    position: relative;
+}
+
+.card-body {
+    text-align:left;
+}
+
+.card-header {
+    text-align: center;
+}
+/*!
+ * Start Bootstrap - Simple Sidebar (https://startbootstrap.com/template-overviews/simple-sidebar)
+ * Copyright 2013-2019 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-simple-sidebar/blob/master/LICENSE)
+ */
+
+h2 {
+    margin-top:-10px;
+    margin-left:5px;
+    background:white;
+}
+
+.fa-layer-group {
+    font-weight:900;
+    font-size: 169px;
+    color: grey;
+    padding:20px;
+    
+}
+
+.uploadButtonSpan {
+    padding:10px;
+    border: 1px solid black;
+    border-radius:10px;
+    margin:5px;
+}
+
+#sidebar-wrapper {
+  /*min-height: 100vh;*/
+    min-height: 93vh;
+  margin-left: -15rem;
+  -webkit-transition: margin .25s ease-out;
+  -moz-transition: margin .25s ease-out;
+  -o-transition: margin .25s ease-out;
+  transition: margin .25s ease-out;
+}
+
+#sidebar-wrapper .sidebar-heading {
+  padding: 0.875rem 1.25rem;
+  font-size: 1.2rem;
+}
+
+#sidebar-wrapper .list-group {
+  width: 18rem;
+}
+
+.list-group {
+    min-height: 93vh;
+    width: 18rem;
+    border-radius:.25rem;
+    border: 1px solid rgba(0,0,0,.125);
+}
+
+#page-content-wrapper {
+  min-width: 100vw;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+  margin-left: 0;
+}
+
+@media (min-width: 768px) {
+  #sidebar-wrapper {
+    margin-left: 0;
+  }
+
+  #page-content-wrapper {
+    min-width: 0;
+    width: 100%;
+  }
+
+  #wrapper.toggled #sidebar-wrapper {
+    margin-left: -15rem;
+  }
+}
+
+table.table.table-striped {
+    /*display: block;
+    height: 560px;
+    overflow-y: scroll;
+    border: 1px solid black;*/
+    /*border-radius: 30px;*/
+}
+
+.pre-scrollable {
+    max-height: 51vh;
+}
+
+fieldset {
+     display: inline-block;
+    vertical-align: top;
+    width: 80% !important;
+    overflow: auto;
+    border: 1px solid black;
+    border-radius: 30px;
+    margin: 10px;
+    padding: 10px;
+    position:relative;
+}
+
+legend {
+    width:auto;
+}
+
+#uploadButtonDiv {
+    margin: 0 auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+#container {
+    position: relative;
+}
+
+div#sidebar-wrapper {
+    display: inline-block;
+    vertical-align: top;
+    height: 100%;
+    width: 18%;
+}
+
+div#wrapper {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    height: 100%;
+}
+
+html {
+    height: 100%;
+}
+
+#uploadButton {
+    opacity: 0;
+}
+
+.newDatasetButtons {
+    position:absolute;
+    bottom: 10px;
+    text-align:center;
+}
+
+.cancelSaveButtons {
+    position:absolute;
+    bottom:10px;
+    right:10px;
+}
+
+.datasetNameInputs {
+    text-align:center;
+}
+
+.card.innerCard.text-center {
+    width: 85rem;
+}
+
+.checkSelectedDiv {
+    position: absolute;
+    bottom: 10px;
+    width: 88%;
+}
+
+.carousel-indicators li {
+    background-color: #007bff;
+}
+
+.carousel-indicators {
+    bottom: 48px;
+}
+
+i.fas.fa-chevron-right, i.fas.fa-chevron-left {
+    color: #007bff;
+}
+
+.carousel {
+    position: unset;
+}
+
+.fa-layer-group:before {
+    text-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+.carousel-inner {
+    text-align: center;
+}
+
+#editViewButton {
+    float:right;
+}
+
+.textInput{
+    margin-right: 10px;
+    margin-left: 5px;
+    width: 300px;
+    display: inline-block;
+}
+
+.noheaders {
+    display:none;
+}
+
+.cancelButton {
+    position: absolute;
+    right: 20px;
+    top: inherit;
+    margin-top: 20px;
+    z-index: 200;
+}
+
+.carousel-item {
+    margin-top: 10px;
+}
+
+.carouselContent {
+    margin-bottom:10px;
+}
+
+@media (max-height:885px) {
+    .pre-scrollable {
+        max-height: 50vh;
+    }
+}

@@ -1,0 +1,240 @@
+
+/*body {
+    overflow: hidden !important;
+}*/
+
+/* ------------- GENERAL -------------- */
+
+nav.navbar.navbar-expand-lg.navbar-dark.bg-dark {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index:1000;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",'Open Sans', sans-serif,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+}
+
+body {
+    background-color: #f8f9fa5c;
+    font-family: 'Open Sans', sans-serif;
+}
+
+div.wrapper {
+        padding-top: 50px;
+}
+
+div#wrapper {
+    padding-top: 56px;
+}
+
+.pre-scrollable {
+	border-radius: .25rem;
+}
+
+::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar
+{
+	width: 6px;
+    height: 4px; 
+	background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb
+{
+	background-color: #0056b3;
+}
+
+/*.list-group-item.active {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}*/
+
+ul.timeline > li.selected:before {
+    border: 3px solid #0056b3;
+}
+
+.selected {
+    color:#0056b3;
+}
+
+.submitButton:hover {
+    background-color: #007bff;
+    color:#ffffff !important;
+}
+
+@media (max-width: 1593px) {
+    .checkSelectedDiv:not(.firstPage) {
+        width: 86% !important;
+    }
+}
+
+@media (max-width: 1359px) {
+    
+    .checkSelectedDiv:not(.firstPage) {
+        width: 84% !important;
+    }
+    
+    #shuffle {
+        width: 142px !important;
+    }
+    
+    .input-group > .form-control {
+        width: 211px !important;
+    }
+    
+    .custom-range {
+        width: 174px !important;
+    }
+    
+    #validation_split {
+        width: 166px !important;
+    }
+    
+    .textInput {
+        width: 250px !important;
+    }
+}
+
+
+@media (max-width: 1432px) {
+    ul.timeline {
+        padding-left: 23px !important;
+    }
+    
+}
+
+@media (max-width: 1174px) {
+    .selected {
+        font-size: 17px !important;    
+    }
+}
+
+@media (max-height: 777px) {
+    * body , .form-control , .input-group-text{
+        font-size: 13px;
+    }
+    .sliderNextButton , .sliderBackButton {
+        padding: 3px 12px;
+        font-size: 12px;
+    }
+    
+    .range {
+        margin-bottom: -14px !important;
+    }
+}
+
+@media (max-width: 1056px) {
+    .input-group > .form-control {
+        width:160px !important;
+    }
+    .custom-range {
+        width: 125px !important;
+    }
+    #validation_split {
+        width: 117px !important;
+    }
+}
+
+@media (max-width: 1180px) {
+    .checkSelectedDiv:not(.firstPage) {
+        width:81% !important;
+    }
+}
+
+.list-group-item {
+    width: unset;
+}
+
+.btn-group:not(.newButton) {
+    width:100%;
+}
+
+.list-group-item:first-child {
+    width: 100%;
+}
+
+.list-group-item:child {
+    
+}
+
+table {
+    font-size: 14px;
+}
+
+
+#viewInfo {
+   /*margin-bottom: 18px;*/
+    margin-bottom: 28px;
+}
+
+.list-group > * {
+    display: table;
+    width: 100%;
+}
+
+.btn-primary {
+    margin-left: 2px;
+}
+
+.btn {
+    margin-left: 1px;
+    margin-right: 1px;
+}
+
+.innerPreScrollable:nth-of-type(2) {
+  overflow:auto;
+}
+
+.pre-scrollable.cardPreScrollable {
+    overflow:auto;
+}
+
+/* ----- LOADING SCREEN --------- */
+.loading-screen-wrapper {
+  z-index: 100000;
+  position: absolute;
+  background-color: #f0f1f2;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.loading-screen-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.fa-spinner {
+    font-size: 40px;
+    color: #007bff;
+}
+
+.modal-header {
+    background-color: rgb(240, 241, 242);
+}
+
+.modal-footer {
+    border-top:unset;
+}
+
+.xColumn {
+    color: #495057;
+    text-decoration: none;
+    background-color: #f8f9fa;
+    outline: 2px auto #007bff;
+}
+
+.yColumn {
+    color: #495057;
+    text-decoration: none;
+    background-color: #e9ecef;;
+    outline: 2px auto #343a40; 
+}

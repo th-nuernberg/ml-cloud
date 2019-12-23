@@ -1,0 +1,57 @@
+{
+  "version": 1,
+  "internal_name": "BinaryClassifier",
+  "desc": "A Binary Classifier models the dependency of one or multiple input variables to one output variable, which can either become zero or one. The input variables can be any floating-point value between zero and one.",
+  "desc_de": "Ein Binary Classifier modelliert die Abhaengigkeiten einer oder mehrer Eingangsvariablen zu einer Ausgangsvariable welche die Werte Null oder Eins annehmen kann. Die Eingangsvariablen können dabei beliebige Fließkommawerte annehmen",
+  "job_id": "1234",
+  "output_type": "scalar",
+  "parameters": {
+    "batch_size": {
+      "default": 10,
+      "validation": {
+        "numeric": {
+          "type": "int",
+          "low": 1,
+          "high": 512
+        }
+      },
+      "desc": "Batchsize: Defines the number of trainingexamples used for one forward- and backward pass at a time."
+    },
+    "epochs": {
+      "default": 10,
+      "validation": {
+        "numeric": {
+          "type": "int",
+          "low": 1,
+          "high": 500
+        }
+      },
+      "desc": "Epochs: Specifies the number of repetitions during training. A higher value corresponds to a higher training duration, but a better model.",
+      "desc_de": "Die Anzahl der Epochen gibt an, wie oft das Modell auf den Datensatz trainiert werden. Hoehere Epochen bedeuten mehr Trainingszeit."
+    },
+    "validation_split": {
+      "default": 0.2,
+      "validation": {
+        "numeric": {
+          "type": "float",
+          "low": 0.1,
+          "high": 0.5
+        }
+      },
+      "desc": "Validation Split: The dataset is split into values for training and testing. This parameter specifies the ratio. A higher value leads to more testing data but less data for training.",
+      "desc_de": "Validation Split ist das Verhaeltnis von Trainings- zu Testdaten. Hoehrer Validation Split bedeutet mehr Daten fuer den Test, weniger fuer das Training"
+    },
+    "shuffle": {
+      "default": true,
+      "validation": {
+        "numeric": {
+          "type": "bool",
+          "low": "none",
+          "high": "none"
+        }
+      },
+      "desc": "Shuffle: Specifies whether to shuffle training and test data after each epoch.",
+      "desc_de": "Shuffle gibt an ob der Trainings- und Testdatensatz jeweils nach jeder Epoche durchmischt werden"
+    }
+  }
+}

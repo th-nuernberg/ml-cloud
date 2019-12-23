@@ -1,0 +1,58 @@
+[
+    {
+        "internal_name": "Architecture_XY",
+        "job_id": "1234",
+        "dataset": "a.csv",
+        "view": 2,
+        "parameters": [
+            {
+                "batch_size": 30
+            },
+            {
+                "learning_rate": 0.01
+            }
+        ]
+    },
+    {
+        "internal_name": "Architecture_AB",
+        "job_id": "5678",
+        "dataset": "b.csv",
+        "view": 2,
+        "parameters": [
+            {
+                "batch_size": 20
+            },
+            {
+                "learning_rate": 0.01
+            }
+        ]
+    },
+    {
+        "internal_name": "Model_XY",
+        "job_id": "9012",
+        "dataset": "c.csv",
+        "view": 2,
+        "parameters": [
+            {
+                "batch_size": 30
+            },
+            {
+                "learning_rate": 0.01
+            }
+        ]
+    },
+    {
+        "internal_name": "Model_AB",
+        "job_id": "3456",
+        "dataset": "d.csv",
+        "view": 2,
+        "parameters": [
+            {
+                "batch_size": 20
+            },
+            {
+                "learning_rate": 0.01
+            }
+        ]
+    }
+]

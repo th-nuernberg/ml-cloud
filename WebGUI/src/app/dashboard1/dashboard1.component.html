@@ -1,0 +1,128 @@
+<i class="fas fa-code-branch fa-rotate-180 dashIcon"></i>
+<div class="welcomemessage">
+    <h1 class="display-4">NNT</h1>
+    <p class="lead">This is a platform to train and evaluate neural networks.</p>
+    <hr>
+    <p>Here you can see your experiments with your jobs. Monitor your current jobs, add a new job to one of your current experiments or start a completely new experiment.</p>
+</div>
+<div *ngIf="(experiments && jobs)">
+    <div class="outerCardDiv" *ngFor="let experiment of experiments; index as i">
+        <div class="outerCard card bg-light" style="max-width: 18rem;">
+            <div class="card-header">{{experiment.experiment_name}}
+            </div>
+            <div class="card-body">
+                <div class="card">
+                    <div *ngFor="let job of jobs; index as j">
+                        <div *ngIf="experiment.job_ids.includes(job.job_id)">
+                            <div class="card-header" [id]="'heading' + j">
+                                <div class="progress">
+                                    <div *ngIf="job.progress && (job.progress.epoch != 'none') && (job.type == 'train') && job.status != 'failed' && job.status != 'finished'" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" [style.width.%]="((job.progress.epoch/job.progress.max_epoch)*100)" [attr.aria-valuenow]="job.progress.epoch" aria-valuemin="0" [attr.aria-valuemax]="job.progress.max_epoch"><span *ngIf="(job.progress.epoch/job.progress.max_epoch)*100">{{(job.progress.epoch/job.progress.max_epoch)*100}}%</span></div>
+                                    <div *ngIf="job.type == 'predict' && job.status != 'failed' && job.status != 'finished'" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%;" [attr.aria-valuenow]="10" aria-valuemin="0" [attr.aria-valuemax]="10">{{job.status}}</div>
+                                    <div *ngIf="job.status == 'finished'" class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 100%;" [attr.aria-valuenow]="10" aria-valuemin="0" [attr.aria-valuemax]="10">{{job.status}}</div>
+                                    <div *ngIf="job.status == 'failed'" class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: 100%;" [attr.aria-valuenow]="10" aria-valuemin="0" [attr.aria-valuemax]="10">{{job.status}}</div>
+                                </div>
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link" type="button" data-toggle="collapse" [attr.data-target]="'#collapse' + j" aria-expanded="true" aria-controls="job.job_id">
+                                        {{job.job_name}} ({{job.type}})<i class="fas fa-chevron-down"></i>
+                                    </button>
+                                </h2>
+                            </div>
+                            <div [id]="'collapse' + j" class="collapse" [attr.aria-labelledby]="'heading' + j">
+                                <div class="card-body">
+                                    <i class="fas fa-trash-alt" (click)="openModal('deleteJobModal', job.job_id, job.job_name, experiment.experiment_id)"></i>
+                                    <div class="elements">
+                                        <h6>
+                                            <p>Details</p>
+                                        </h6>
+                                        <p><b>Status:</b> {{job.status}}</p>
+                                        <p><b>Dataset:</b> {{job.dataset_name}}</p>
+                                        <p><b>Architecture:</b> {{job.architecture_name}}</p>
+                                        <p><b>View:</b> <br>{{job.view_name}}</p>
+                                        <p><b>Config:</b> <br>{{job.config_name}}</p>
+                                    </div>
+                                    <hr class="my-4">
+                                    <div class="parameters">
+                                        <div *ngIf="job.progress">
+                                            <h6>
+                                                <p>Progress</p>
+                                            </h6>
+
+                                            <div *ngFor="let progVal of job.progress | keyvalue; index as i">
+                                                <p><b>{{progVal.key}}:</b> {{job.progress[progVal.key]}}</p>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="(job.status == 'finished') && (job.type == 'predict')">
+                                            <h6>
+                                                <p>Prediction</p>
+                                            </h6>
+                                            <p (click)="onDownloadFile(job.job_id, job.dataset_name)"><i class="fas fa-file-download"></i> {{job.dataset_name}} (predicted)</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button type="button" class="btn btn-secondary bmd-btn-fab" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" [routerLink]="['/training/upload']" [queryParams]="{exp: experiment.experiment_id}">Add Training Job</a>
+                <a class="dropdown-item" [routerLink]="['/evaluation/model']" [queryParams]="{exp: experiment.experiment_id}">Add Evaluation Job</a>
+                <a class="dropdown-item" (click)="openModal('deleteExpModal', experiment.experiment_id, experiment.experiment_name, '')" style="cursor:pointer;">Delete Experiment</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<jw-modal id="deleteExpModal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Delete Experiment?</h5>
+                <button type="button" class="close" (click)="closeModal('deleteExpModal');">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete your Experiment {{this.modalService.name}}?<br>
+                    All your jobs and currently running jobs will be deleted.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal" (click)="closeModal('deleteExpModal');">Close</button>
+                <button type="button" class="btn btn-primary" (click)="onDeleteExperiment(this.modalService.objectID); closeModal('deleteExpModal');">Delete</button>
+            </div>
+        </div>
+    </div>
+</jw-modal>
+<!--
+CLICK EVENT FOR EXPERIMENT BIN ICON
+(click)="openModal('deleteExpModal', experiment.experiment_id, experiment.experiment_name)"
+-->
+
+<jw-modal id="deleteJobModal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Delete Job?</h5>
+                <button type="button" class="close" (click)="closeModal('deleteJobModal');">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete your Job {{this.modalService.name}}?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal" (click)="closeModal('deleteJobModal');">Close</button>
+                <button type="button" class="btn btn-primary" (click)="onDeleteJob(this.modalService.expID, this.modalService.objectID); closeModal('deleteJobModal');">Delete</button>
+            </div>
+        </div>
+    </div>
+</jw-modal>
+<!--
+CLICK EVENT FOR EXPERIMENT BIN ICON
+(click)="openModal('deleteJobModal', job.job_id, job.job_name, experiment.experiment_id)"
+-->

@@ -1,0 +1,17 @@
+<ul class="timeline">
+    <li class="timelineListObject" [ngClass]="(childUpload)? 'selected' : 'notSelected'">
+        <div [ngClass]="(childUpload)? 'selected' : 'notSelected'"><a href="training/upload">Dataset</a></div>
+    </li>
+    <li class="timelineListObject" [ngClass]="(childLabel)? 'selected' : 'notSelected'">
+        <div [ngClass]="(childLabel)? 'selected' : 'notSelected'"><a href="training/label">View</a></div>
+    </li>
+    <li class="timelineListObject" [ngClass]="(childArchitecture)? 'selected' : 'notSelected'">
+        <div [ngClass]="(childArchitecture)? 'selected' : 'notSelected'"><a href="training/architecture">Architecture</a></div>
+    </li>
+    <li class="timelineListObject" [ngClass]="(childConfig)? 'selected' : 'notSelected'">
+        <div [ngClass]="(childConfig)? 'selected' : 'notSelected'"><a href="training/config">Parameters</a></div>
+    </li>
+    <li class="timelineListObject lastTimelineItem" [ngClass]="(childCheck)? 'selected' : 'notSelected'">
+        <div class="lastTimelineItem" [ngClass]="(childCheck)? 'selected' : 'notSelected'"><a href="training/check">Check</a></div>
+    </li>
+</ul>

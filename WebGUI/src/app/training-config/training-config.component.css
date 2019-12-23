@@ -1,0 +1,204 @@
+.timeline{
+    float:left;
+    display: inline-block;
+    vertical-align: top;
+    height: 77vh;
+    width: 15%;
+    min-height: 92vh;
+    transition: margin .25s ease-out;
+}
+
+fieldset {
+     display: inline-block;
+    vertical-align: top;
+    width:100% !important; /*timeline on right side of page */
+    overflow: auto;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 10px;
+    position:relative;
+    height: 91vh;
+}
+
+div.wrapper {
+    height: 100%;
+    padding-top: 64px;
+    padding-right: 30px;
+}
+
+.directionButton {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}
+
+.outerCard {
+    width: -moz-available;           /*Mozilla-based browsers */
+    width: -webkit-fill-available;   /* Webkit-based browsers */
+    width: stretch;
+    
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.pre-scrollable.cardPreScrollable {
+    vertical-align: top;
+    width: auto;
+    min-height: 88vh;
+    margin-top: 11px;
+    margin-left: 10px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    /* box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); */
+    
+    position: relative;
+}
+
+.card-body {
+    text-align:left;
+}
+
+.card-header {
+    text-align: center;
+}
+
+.checkSelectedDiv {
+    position: absolute;
+    bottom: 10px;
+    width: 88%;
+}
+
+.card.innerCard {
+    height: -webkit-fill-available;
+}
+
+.innerPreScrollable {
+    display: inline-block;
+    width: 47%;
+    max-height: 66vh;
+    height: 66vh;
+    padding-left: 20px;
+}
+
+.innerCard > .card-body {
+    padding: 0;
+    border: none;
+}
+
+.innerPreScrollable > .card.innerCard {
+    border: none;
+}
+
+.infoBox {
+    width:53%;
+}
+
+.pre-scrollable.infoBox.innerPreScrollable {
+    padding: 20px;
+}
+
+.input-group>.form-control {
+    width: 300px;
+    flex: unset;
+}
+
+.custom-range {
+    width: 300px;
+    padding-top: 9px;
+}
+
+.input-group-text {
+    width:150px;
+}
+
+.batch_size, .epochs {
+    margin-left: 134px;
+}
+
+.shuffle {
+    margin-left: 156px !important;
+}
+
+.validation_split {
+    margin-left: 122px;
+}
+#parameterDiv {
+    display: inline-block;
+}
+
+div#iconDiv {
+    /* width: 40%; */
+    display: inline-block;
+    padding: 66px;
+    position: absolute;
+    right: 130px;
+    top: 111px;
+}
+
+.fa, .fas {
+    font-weight: 900;
+    font-size: 300px;
+    color: lightgrey;
+}
+
+.mb-3, .my-3 {
+    margin-bottom: 0rem!important;
+}
+
+
+/*----*/
+
+.input-group.mb-3:not(.nameFormControl) {
+    height: 66px;
+}
+
+.batch_size , .epochs , .validation_split, .shuffle {
+    position: relative;
+    top: -28px;
+}
+
+.batch_size, .epochs {
+    margin-left: 150px;
+}
+
+.custom-range {
+    width: 255px;
+}
+
+.range {
+    margin-bottom: 0;
+}
+
+.shuffle {
+    margin-left: 150px;
+}
+
+#shuffle {
+    width: 214px;
+}
+
+.validation_split {
+    margin-left: 151px;
+}
+
+#validation_split {
+    width: 244px;
+}
+
+.archNameLabel {
+    margin-bottom:18px;
+}
+
+.textInput{
+    margin-right: 5px;
+    margin-left: 5px;
+    width: 300px;
+    display: inline-block;
+}
+
+.nameFormControl {
+    margin-bottom: 1rem !important;
+}

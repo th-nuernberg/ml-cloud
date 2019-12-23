@@ -1,0 +1,14 @@
+[
+    {
+        "id": "Notenrelation",
+        "data_file": "a.csv",
+        "view": 2,
+        "job_configs": ["1234", "9012"]
+    },
+    {
+        "id": "Weiteres Experiment",
+        "data_file": "a.csv",
+        "view": 1,
+        "job_configs": ["5678", "3456"]
+    }
+]

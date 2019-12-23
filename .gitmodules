@@ -1,0 +1,9 @@
+[submodule "Controller"]
+	path = Controller
+	url = ../it_controller.git
+[submodule "WebGUI"]
+	path = WebGUI
+	url = ../it_webgui.git
+[submodule "Worker"]
+	path = Worker
+	url = ../it_worker.git

@@ -1,0 +1,54 @@
+/* ---------- GENERAL ---------- */
+
+.jumbotron {
+    height: 100vh;
+    margin-bottom:0;
+    background-image: linear-gradient(to top, #f8f9fa5c 0%, #e6e6e6 100%);
+        background-color: unset;
+}
+
+.insideJumbotron {
+    position: absolute;
+    top: calc(50% - 256px/2);
+    left: 105px;
+}
+
+.divider {
+    width:2px;
+    height:auto;
+    display:inline-block;
+}
+
+/* ----------- BUTTONS ----------- */
+
+button.btn.btn-link {
+    text-decoration: none;
+}
+
+button.btn.btn-secondary.bmd-btn-fab:hover , button#dropdownMenuButton:hover , .btn-group-vertical>.btn:hover, .btn-group>.btn:hover {
+    background-color: #0056b3 !important;
+}
+
+/* ----------- ICONS ---------- */
+
+i.fas.fa-chevron-down {
+    font-size: 19px;
+    color: #007bff;
+    margin-left: 8px;
+}
+
+i.fas.fa-code-branch {
+    position: absolute;
+    font-size: 669px;
+    top: 11px;
+    right: 222px;
+    transform: rotate(133deg);
+    opacity: .1;
+    color: #0056b3;
+    text-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    /* text-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); */
+}
+
+.dashIcon {
+    opacity: 0.03 !important;
+}

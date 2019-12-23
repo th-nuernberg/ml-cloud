@@ -1,0 +1,14 @@
+<ul class="timeline">
+    <li class="timelineListObject" [ngClass]="(childModel)? 'selected' : 'notSelected'">
+        <div [ngClass]="(childModel)? 'selected' : 'notSelected'"><a href="evaluation/model">Model</a></div>
+    </li>
+    <li class="timelineListObject" [ngClass]="(childData)? 'selected' : 'notSelected'">
+        <div [ngClass]="(childData)? 'selected' : 'notSelected'"><a href="evaluation/data">Data</a></div>
+    </li>
+    <li class="timelineListObject" [ngClass]="(childView)? 'selected' : 'notSelected'">
+        <div [ngClass]="(childView)? 'selected' : 'notSelected'"><a href="evaluation/view">View</a></div>
+    </li>
+    <li class="timelineListObject lastTimelineItem" [ngClass]="(childCheck)? 'selected' : 'notSelected'">
+        <div [ngClass]="(childCheck)? 'selected' : 'notSelected'"><a href="evaluation/check">Check</a></div>
+    </li>
+</ul>

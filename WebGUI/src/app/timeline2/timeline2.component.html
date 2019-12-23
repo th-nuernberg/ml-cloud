@@ -1,0 +1,22 @@
+<ul class="timeline">
+    <div *ngFor="let title of childTitles; index as i">
+        <li>
+            <div [ngClass]="('child' + i)? 'selected' : 'notSelected'">{{title}}</div>
+        </li>
+    </div>
+    <!--<li>
+        <div [ngClass]="(childUpload)? 'selected' : 'notSelected'">Upload</div>
+    </li>
+    <li>
+        <div [ngClass]="(childLabel)? 'selected' : 'notSelected'">Label</div>
+    </li>
+    <li>
+        <div [ngClass]="(childArchitecture)? 'selected' : 'notSelected'">Architecture</div>
+    </li>
+    <li>
+        <div [ngClass]="(childConfig)? 'selected' : 'notSelected'">Config</div>
+    </li>
+    <li>
+        <div [ngClass]="(childCheck)? 'selected' : 'notSelected'">Check</div>
+    </li>-->
+</ul>

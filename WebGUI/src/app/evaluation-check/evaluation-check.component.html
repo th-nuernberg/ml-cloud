@@ -1,0 +1,57 @@
+<div class="wrapper">
+    <div class="timeline">
+        <app-timeline3 [childCheck]="parentCheck"></app-timeline3>
+    </div>
+    <div class="contentBox">
+        <div class="pre-scrollable cardPreScrollable">
+            <div class="card outerCard">
+                <div class="card-header">Check your Selections
+                </div>
+                <div class="card-body">
+
+                    <form>
+                        <div class="form-group">
+                            <label for="model">Model</label><br>
+                            <input type="text" class="form-control" id="model" name="model" placeholder="Nothing Selected" [(ngModel)]="archConfigString" readonly required [ngClass]="{'invalid': !archConfigString}">
+                            <span *ngIf="!archConfigString" class="disclaimer">
+                                Model is required.
+                            </span>
+                        </div>
+                        <div class="form-group">
+                            <label for="data">Data</label><br>
+                            <input type="text" class="form-control" id="datasetName" name="datasetName" placeholder="Nothing Selected" [(ngModel)]="datasetName" readonly required [ngClass]="{'invalid': !datasetName}">
+                            <span *ngIf="!datasetName" class="disclaimer">
+                                Data is required.
+                            </span>
+                        </div>
+                        <div class="form-group">
+                            <label for="view">View</label><br>
+                            <input type="text" class="form-control" id="viewString" name="viewString" placeholder="Nothing Selected" [(ngModel)]="viewString" readonly required [ngClass]="{'invalid': !viewString}">
+                            <span *ngIf="!viewString" class="disclaimer">
+                                View is required.
+                            </span>
+                        </div>
+                    </form>
+                    <div class="form-group">
+                        <label for="jobName">Enter Job Name</label><br>
+                        <input type="text" class="form-control" id="jobName" name="jobName" placeholder="Job Name" aria-label="Job Name" aria-describedby="basic-addon1" [(ngModel)]="jobName" required>
+                        <!--<span *ngIf="!jobName" class="disclaimer">
+                                Job Name is required.
+                            </span>-->
+                    </div>
+                    <div class="form-group">
+                        <label for="experimentName">Enter Experiment Name</label><br>
+                        <input type="text" class="form-control" id="experimentName" name="experimentName" placeholder="Experiment Name" aria-label="Experiment Name" aria-describedby="basic-addon1" [disabled]="experimentID" [(ngModel)]="experimentName" [required]="!experimentID">
+                        <!--<span *ngIf="!experimentName&&!experimentID" class="disclaimer">
+                                Experiment Name is required.
+                            </span>-->
+                    </div>
+                    <div class="directionButton">
+                        <button class="btn btn-outline-secondary" href="evaluation/view" role="button">Back</button>
+                        <button class="btn btn-primary" [disabled]="!jobName || !experimentName || !datasetName || !viewString || !archID || !archConfigString" role="button" (click)="onSubmit()">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,70 @@
+<div class="wrapper">
+    <div class="timeline">
+        <app-timeline3 [childModel]="parentModel"></app-timeline3>
+    </div>
+    <div class="contentBox">
+        <div class="pre-scrollable cardPreScrollable">
+            <div class="card outerCard">
+                <div class="card-header">Select a Model
+                </div>
+                <div class="card-body">
+                    <div class="pre-scrollable innerPreScrollable">
+                        <div class="card innerCard">
+                            <div class="card-body">
+                                <div *ngIf="archConfigs">
+                                    <div class="list-group">
+                                        <button type="text" class="list-group-item list-group-item-action active">
+                                            Models
+                                        </button>
+                                        <div *ngIf="archConfigs.length<=0">
+                                            <button type="button" class="list-group-item list-group-item-action" disabled="true">No Models</button>
+                                        </div>
+                                        <div *ngFor="let archConfig of archConfigs">
+                                            <button type="button" class="list-group-item list-group-item-action" [id]="archConfig.architecture_config_id" (click)="onClickModel(archConfig.architecture_config_id)">{{archConfig.architecture_config_name}} Model</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pre-scrollable infoBox innerPreScrollable">
+                        <div class="card innerCard">
+                            <div class="card-body">
+                                <div id="outerNoArchDiv">
+                                    <div *ngIf="!archConfig" id="noArchOrConfigChosen">
+                                        <i class="fas fa-code-branch"></i><br>
+                                        <div style="margin-top: 20px;">
+                                            Select a model from the list to get information and use it for evaluation.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div *ngIf="archConfig && archConfigArch">
+                                    <h2>Selected Config: {{archConfig.architecture_config_name}} Model</h2><br>
+                                    <strong>Dataset: {{archConfig.dataset_name}}</strong><br>
+                                    <strong>View: {{archConfig.view_name}}</strong><br>
+                                    <strong>Architecture: {{archConfig.architecture_id}}</strong><br>
+                                    <div *ngFor="let parameter of archConfig.parameters | keyvalue; index as i">
+                                        <strong>{{parameter.key}}: {{archConfig.parameters[parameter.key]}}</strong><br>
+                                    </div>
+                                    <br>
+                                    {{archConfigArch.desc}}<br>
+                                    <div *ngFor="let parameter of archConfigArch.parameters | keyvalue; index as i">
+                                        {{archConfigArch.parameters[parameter.key].desc}}<br>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="checkSelectedDiv firstPage">
+                        <label>Selected Model</label>
+                        <input class="form-control" type="text" placeholder="Nothing Selected" [(ngModel)]="selectedName" readonly>
+                    </div>
+                    <div class="directionButton">
+                        <a class="btn btn-primary" href="evaluation/data" role="button" [class.disabled]="!selectedName">Next</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

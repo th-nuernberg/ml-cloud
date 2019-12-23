@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "internal_name": "MulticlassClassifier",
+  "job_id": "1234",
+  "parameters": [
+    {
+      "batch_size": {
+        "default": 10,
+        "validation": {
+          "numeric": {
+            "type": "int",
+            "low": 1,
+            "high": 512
+          }
+        }
+      }
+    },
+    {
+      "epochs": {
+        "default": 10,
+        "validation": {
+          "numeric": {
+            "type": "int",
+            "low": 1,
+            "high": 500
+          }
+        }
+      }
+    },
+    {
+      "validation_split": {
+        "default": 0.2,
+        "validation": {
+          "numeric": {
+            "type": "float",
+            "low": 0.1,
+            "high": 0.5
+          }
+        }
+      }
+    },
+    {
+      "shuffle": {
+        "default": "false",
+        "validation": {
+          "numeric": {
+            "type": "bool",
+            "low": "none",
+            "high": "none"
+          }
+        }
+      }
+    }
+  ]
+}

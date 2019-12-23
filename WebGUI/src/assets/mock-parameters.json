@@ -1,0 +1,26 @@
+[
+    {
+        "parameters": {
+            "batch_size": {
+                "default": 10,
+                "validation": {
+                    "numeric": {
+                        "type": "int",
+                        "low": 1,
+                        "high": 512
+                    }
+                }
+            },
+            "epochs": {
+                "default": 10,
+                "validation": {
+                    "numeric": {
+                        "type": "int",
+                        "low": 1,
+                        "high": 500
+                    }
+                }
+            }
+        }
+    }
+]

@@ -1,0 +1,11 @@
+<div *ngIf="dataset">
+
+  <h2>{{dataset.filename | uppercase}}</h2>
+  <div><span>id: </span>{{dataset.id}}</div>
+  <div>
+    <label>name:
+      <input [(ngModel)]="dataset.filename" placeholder="filename"/>
+    </label>
+  </div>
+
+</div>

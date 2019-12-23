@@ -1,0 +1,64 @@
+<div class="wrapper">
+    <div class="timeline">
+        <app-timeline [childCheck]="parentCheck"></app-timeline>
+    </div>
+    <div class="contentBox">
+
+        <div class="pre-scrollable cardPreScrollable">
+            <div class="card outerCard">
+                <div class="card-header">Check your selections and configurations
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="datasetName">Dataset</label><br>
+                            <input type="text" class="form-control" id="datasetName" name="datasetName" placeholder="Nothing Selected" [(ngModel)]="datasetName" readonly required [ngClass]="{'invalid': !datasetName}">
+                            <span *ngIf="!datasetName" class="disclaimer">
+                                Dataset is required.
+                            </span>
+                        </div>
+                        <div class="form-group">
+                            <label for="viewString">View</label><br>
+                            <input type="text" class="form-control" id="viewString" name="viewString" name="viewString" placeholder="Nothing Selected" [(ngModel)]="viewString" readonly required [ngClass]="{'invalid': !viewString}">
+                            <span *ngIf="!viewString" class="disclaimer">
+                                View is required.
+                            </span>
+                        </div>
+                        <div class="form-group">
+                            <label for="arch">Architecture</label><br>
+                            <input type="text" class="form-control" id="arch" name="arch" placeholder="Nothing Selected" [(ngModel)]="archID" readonly required [ngClass]="{'invalid': !archID}">
+                            <span *ngIf="!archID" class="disclaimer">
+                                Architecture is required.
+                            </span>
+                        </div>
+                        <div class="form-group">
+                            <label for="param">Parameters</label><br>
+                            <input type="text" class="form-control" id="param" name="param" placeholder="Nothing Selected" [(ngModel)]="archConfigString" readonly required [ngClass]="{'invalid': !archConfigString}">
+                            <span *ngIf="!archConfigString" class="disclaimer">
+                                Configuration is required.
+                            </span>
+                        </div>
+                    </form>
+                    <div class="form-group">
+                        <label for="jobName">Enter Job Name</label><br>
+                        <input type="text" class="form-control" id="jobName" name="jobName" placeholder="Job Name" aria-label="Job Name" [(ngModel)]="jobName" required>
+                        <!--<span *ngIf="!jobName" class="disclaimer">
+                                Job Name is required.
+                            </span>-->
+                    </div>
+                    <div class="form-group">
+                        <label for="experimentName">Enter Experiment Name</label><br>
+                        <input type="text" class="form-control" id="experimentName" name="experimentName" placeholder="Experiment Name" aria-label="Experiment Name" [disabled]="experimentID" [(ngModel)]="experimentName" [required]="!experimentID">
+                        <!--<span *ngIf="!experimentName&&!experimentID" class="disclaimer">
+                                Experiment Name is required.
+                            </span>-->
+                    </div>
+                    <div class="directionButton">
+                        <a class="btn btn-outline-secondary" href="training/config" role="button">Back</a>
+                        <button class="btn btn-primary" role="button" (click)="onSubmit()" [disabled]="!jobName || !experimentName || !datasetName || !viewString || !archID || !archConfigString">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

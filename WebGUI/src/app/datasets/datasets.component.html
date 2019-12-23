@@ -1,0 +1,227 @@
+<head>
+    <link href="/../include/fontawesome/css/all.css">
+</head>
+
+<div class="d-flex" id="wrapper">
+    <!-- sidebar -->
+    <div class="pre-scrollable listPreScrollable">
+        <div class="list-group">
+            <div *ngIf="datasetsRest">
+                <button type="button" class="list-group-item list-group-item-action active"><i class="fas fa-layer-group"></i> Datasets <i class="fas fa-file-upload sidebaricon" (click)="createNewDataset()"></i>
+                </button>
+                <div *ngIf="datasetsRest.length<=0" class="btn-group" role="group">
+                    <button type="button" class="list-group-item list-group-item-action" disabled="true">No Datasets</button>
+                </div>
+                <div *ngFor="let dataset of datasetsRest" class="btn-group" role="group">
+                    <button type="button" [id]="dataset.dataset_id" (click)="onDatasetSelect($event)" class="list-group-item list-group-item-action">{{dataset.filename}}</button>
+                    <button type="button" (click)="openModal('deleteDatasetModal', dataset.dataset_id, dataset.filename, '')" class="list-group-item list-group-item-action"><i class="fas fa-trash-alt"></i></button>
+                </div>
+            </div>
+            <div *ngIf="viewsRest">
+                <button type="button" class="list-group-item list-group-item-action active"><i class="fas fa-layer-group"></i>
+                    Views
+                </button>
+                <div *ngIf="viewsRest.length<=0" class="btn-group" role="group">
+                    <button type="button" class="list-group-item list-group-item-action" disabled="true">No Views</button>
+                </div>
+                <div *ngFor="let view of viewsRest" class="btn-group" role="group">
+                    <button type="button" [id]="view.view_id" (click)="onViewSelect(view.view_id)" class="list-group-item list-group-item-action">{{view.view_name}}</button>
+                    <!-- Data: {{view.data_columns}} Label: {{view.target_columns}} -->
+                    <button type="button" (click)="openModal('deleteViewModal', view.view_id, view.view_name , '')" class="list-group-item list-group-item-action"><i class="fas fa-trash-alt"></i></button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- /sidebar -->
+
+    <!-- Page Content -->
+    <div class="card text-center">
+        <div class="loading-screen-wrapper" *ngIf="loading">
+            <div class="loading-screen-icon">
+                <i class="fas fa-spinner fa-pulse"></i>
+            </div>
+        </div>
+
+
+        <div class="card-header" *ngIf="uploadDatasetMode && data">
+            Unsaved Dataset
+        </div>
+        <div class="card-header" *ngIf="(showDatasetMode || createViewMode) && data">
+            {{selectedDataset.filename | uppercase}}
+        </div>
+        <div class="card-header" *ngIf="(showViewMode) && data">
+            {{selectedView.view_name | uppercase}}
+        </div>
+        <div class="card-body">
+            <div id="uploadButtonDiv" *ngIf="((!createViewMode) && (!showViewMode) && (!showDatasetMode) && (!uploadDatasetMode))">
+                <i class="fas fa-layer-group"></i><br>
+                Select a dataset or view from the sidebar to get information and/or create a new view or upload a new dataset.
+                <br>
+                <span class=""><label for="uploadButton" class="btn btn-outline-secondary"><i class="fas fa-file-upload"></i> UPLOAD </label></span>
+                <br>
+                <input type="file" id="uploadButton" class="upload" value="Upload" (change)="changeListener($event.target.files)">
+                <br>
+            </div>
+            <div class="pre-scrollable" *ngIf="data && (!showViewMode)" [ngClass]="{'fullSizeTable': !createViewMode, 'halfSizeTable': createViewMode}">
+                The first 100 Lines of your dataset or view:
+                <table *ngIf="data" class="table table-striped">
+                    <thead [ngClass]="{noheaders: !hasHeaders}">
+                        <tr>
+                            <th scope="col" *ngFor="let w of headers">{{ w }}</th>
+                        </tr>
+                    </thead>
+                    <tr *ngFor="let x of data; let i = index">
+                        <td *ngFor="let y of x; let j = index;" id="{{i + '.' + j}}" class="{{j}}" [ngClass]="{'xColumn' : selectedXColumns.includes(j), 'yColumn' : selectedYColumn.includes(j)}" (click)="selectColumn($event)">{{ y }}</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div *ngIf="showDatasetMode || uploadDatasetMode">
+                <br>
+                <label *ngIf="data && !showViewMode">Enter Dataset Name: </label> <input class="form-control textInput" [(ngModel)]="datasetName">
+                <button class="btn btn-outline-secondary" *ngIf="data && showDatasetMode" (click)="renameDataset()" [disabled]="!datasetName">Rename Dataset</button><br>
+                <div *ngIf="uploadDatasetMode" class="headerCheckDiv">
+                    Does this dataset have headers?
+                    <!-- Default checked -->
+                    <div class="custom-control custom-radio">
+                        <input type="radio" class="custom-control-input" id="noHeadersRadio" value="noheaders" name="headerRadio" required mdbInput checked="true" (change)="onItemChange('noheaders')" [(ngModel)]="headerRadio" #headerControl="ngModel">
+                        <label class="custom-control-label" for="noHeadersRadio">No headers</label>
+                    </div>
+                    <!-- Default unchecked -->
+                    <div class="custom-control custom-radio">
+                        <input type="radio" class="custom-control-input" required id="headersRadio" value="hasHeaders" name="headerRadio" mdbInput (change)="onItemChange('hasheaders')" [(ngModel)]="headerRadio" #headerControl="ngModel">
+                        <label class="custom-control-label" for="headersRadio">Has headers</label>
+                    </div>
+                </div>
+                <button class="btn btn-outline-secondary submitButton" *ngIf="data && uploadDatasetMode" (click)="saveDataset()" [disabled]="!datasetName || !headerRadio">Save Dataset</button>
+                <button class="btn btn-outline-secondary sliderBackButton dsButtons" *ngIf="data && showDatasetMode" (click)="createView()" data-target="#carouselExampleIndicators" data-slide-to="0" [disabled]="!datasetName">Create View</button>
+            </div>
+            <button class="btn btn-outline-secondary cancelButton" *ngIf="createViewMode" (click)="cancelNewView()">Cancel</button>
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="false" *ngIf="data && createViewMode">
+                <ol class="carousel-indicators">
+                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active" (click)="changeCreateViewLevel('selectXColumns')"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="1" (click)="changeCreateViewLevel('selectYColumns')"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="2" (click)="changeCreateViewLevel('enterViewname')"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="3" (click)="changeCreateViewLevel('checkAndSave')"></li>
+                </ol>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="carouselContent">
+                            <p>Select X Columns by clicking on columns.</p>
+                            <div *ngIf="createViewMode">
+                                <span *ngFor="let x of selectedXColumns; let i = index;">x{{i+1}} = {{x}}; </span>
+                            </div>
+                        </div>
+                        <button class="btn btn-outline-secondary sliderNextButton" (click)="changeCreateViewLevel('selectYColumns')" data-target="#carouselExampleIndicators" data-slide-to="1" [disabled]="selectedXColumns?.length<=0">Next</button>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="carouselContent">
+                            <p>Select Y Columns by clicking on columns.</p>
+                            <div *ngIf="createViewMode">
+                                <span *ngFor="let x of selectedXColumns; let i = index;">x{{i+1}} = {{x}}; </span> <br>
+                                <span *ngFor="let y of selectedYColumn;">y = {{y}}; </span>
+                            </div>
+                        </div>
+                        <button class="btn btn-outline-secondary sliderBackButton" (click)="changeCreateViewLevel('selectXColumns')" data-target="#carouselExampleIndicators" data-slide-to="0">Back</button>
+                        <button class="btn btn-outline-secondary sliderNextButton" (click)="changeCreateViewLevel('enterViewname')" data-target="#carouselExampleIndicators" data-slide-to="2" [disabled]="selectedYColumn?.length<=0">Next</button>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="carouselContent">
+                            <label *ngIf="createViewMode">Enter View Name: </label> <input [(ngModel)]="viewName" *ngIf="createViewMode" class="form-control textInput"><br>
+                        </div>
+                        <button class="btn btn-outline-secondary sliderBackButton" (click)="changeCreateViewLevel('selectYColumns')" data-target="#carouselExampleIndicators" data-slide-to="1">Back</button>
+                        <button class="btn btn-outline-secondary sliderNextButton" (click)="changeCreateViewLevel('checkAndSave')" data-target="#carouselExampleIndicators" data-slide-to="3" [disabled]="!viewName">Next</button>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="carouselContent ">
+                            <p>Check if you are happy with your selections.<br>
+                                View Name: <input [(ngModel)]="viewName" class="form-control textInput"><br>
+                                Xs: <span *ngFor="let x of selectedXColumns; let i = index;">x{{i+1}} = {{x}}; </span>
+                                Ys: <span *ngFor="let y of selectedYColumn;">y = {{y}}; </span>
+                            </p>
+                        </div>
+                        <button class="btn btn-outline-secondary sliderBackButton" (click)="changeCreateViewLevel('enterViewname')" data-target="#carouselExampleIndicators" data-slide-to="2">Back</button>
+                        <button class="btn btn-outline-secondary submitButton sliderBackButton" [disabled]="!viewName || selectedXColumns.length<=0 || selectedYColumn.length<=0" *ngIf="createViewMode" (click)="saveNewView()">Save</button>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="showDatasetMode && data">
+                <div>Views: <span *ngFor="let x of viewsOfDataset;">{{x}}, </span><span *ngIf="viewsOfDataset<=0">No Views</span></div>
+            </div>
+
+            <div *ngIf="showViewMode">
+                <div><span>Source Dataset: </span>{{selectedViewDatasetName}}</div>
+                <div><span>Data: </span>{{selectedView.data_columns}}</div>
+                <div><span>Labels: </span>{{selectedView.target_columns}}</div>
+                <div class="pre-scrollable" *ngIf="showViewMode" style="margin-top:20px;">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col" *ngFor="let w of selectedView.data_columns; let i = index;">x{{ i+1 }}</th>
+                                <th scope="col" *ngFor="let z of selectedView.target_columns">y</th>
+                                <th scope="col" *ngIf="yColumnData[0].length<=0">y</th>
+                            </tr>
+                            <tr>
+                                <th scope="col" *ngFor="let h of xHeaders">{{ h }}</th>
+                                <th scope="col" *ngFor="let yh of yHeaders">{{ yh }}</th>
+                                <th scope="col" *ngIf="yColumnData[0].length<=0">No label columns have been specified for this view.</th>
+                            </tr>
+                        </thead>
+                        <tr *ngFor="let x of xColumnData; let i = index">
+                            <td *ngFor="let y of x; let j = index;" id="{{i + '.' + j}}" class="{{j}}">{{ y }}</td>
+                            <td *ngIf="yColumnData[0].length>0">{{ yColumnData[i] }}</td>
+                            <td *ngIf="yColumnData[0].length<=0">No label columns have been specified for this view.</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+<jw-modal id="deleteDatasetModal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Delete Dataset?</h5>
+                <button type="button" class="close" (click)="closeModal('deleteDatasetModal');">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete your Dataset {{this.modalService.name}}?<br>
+                    This might affect currently running jobs using this dataset.<br>
+                    All views created from this dataset will also be deleted.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal" (click)="closeModal('deleteDatasetModal');">Close</button>
+                <button type="button" class="btn btn-primary" (click)="onDeleteDataset(this.modalService.objectID); closeModal('deleteDatasetModal');">Delete</button>
+            </div>
+        </div>
+    </div>
+</jw-modal>
+
+<jw-modal id="deleteViewModal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Delete View?</h5>
+                <button type="button" class="close" (click)="closeModal('deleteViewModal');">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete your View {{this.modalService.name}}?<br>
+                    This might affect currently running jobs using this view.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal" (click)="closeModal('deleteViewModal');">Close</button>
+                <button type="button" class="btn btn-primary" (click)="onDeleteView(this.modalService.objectID); closeModal('deleteViewModal');">Delete</button>
+            </div>
+        </div>
+    </div>
+</jw-modal>

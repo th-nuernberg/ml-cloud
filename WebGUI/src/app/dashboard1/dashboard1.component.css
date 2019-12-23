@@ -1,0 +1,158 @@
+/* ------- GENERAL ----------- */
+
+.welcomemessage {
+    text-align:center;
+    height:auto;
+    padding-top: 67px;
+    padding-bottom: 10px;
+    background-image: linear-gradient(to top, #f8f9fa5c 0%, #e6e6e6 90%);
+}
+
+
+hr {
+    margin-bottom:0.5rem;
+    margin-top:0.5rem;
+}
+
+.jumbotronDash {
+    height:auto;
+    padding-top: 56px;
+    padding-bottom: 10px;
+}
+
+.insideJumbotronDash {
+    top:20px;
+}
+
+.dropdown-menu.show {
+    top: -10px !important;
+    left: 19px !important;
+    z-index: 1;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    
+}
+
+/* ----- BUTTONS ----- */
+
+button.btn.btn-link {
+    text-decoration: none;
+}
+
+button.btn.btn-secondary.bmd-btn-fab:hover , button#dropdownMenuButton:hover , .btn-group-vertical>.btn:hover, .btn-group>.btn:hover {
+    background-color: #0056b3 !important;
+}
+
+.bmd-btn-fab {
+    z-index:500;
+    position:absolute;
+    top: -10px;
+    right: -10px;
+    border-radius:20px;
+    background-color:#007bff;
+    border-color:#007bff;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    /* box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); */
+}
+
+/* ------- CARDS --------- */
+
+.card {
+    position: relative;
+}
+
+.outerCard {
+    width: 286px;
+}
+
+.outerCardDiv {
+    margin:20px;
+    display:inline-block;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    /* box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); */
+}
+
+.card-body p {
+    margin-bottom:0;
+    font-size:13px;
+}
+
+/*
+JOB INFO BOX IF NOT VERTICALLY BUT HORIZONTALLY SPLIT
+
+.elements {
+    padding-right: .75rem;
+    width:49%;
+    float:left;
+    border-right: 1px solid grey;
+   padding-bottom: 1.25rem;
+}
+
+.parameters {
+    padding-left: .75rem;
+    width: 50%;
+    float:left;
+    margin-bottom:1.25rem;
+}
+*/
+
+.progress-bar {
+    background-color:#007bff;
+}
+
+
+/* --------- ICONS -------- */
+
+.fa-plus-circle {
+    font-weight: 900;
+    font-size: 44px;
+    color: grey;
+    /*position: element(.card);
+    transform: translate(550%, -579%);*/
+    z-index: 500;
+    /*background-color:#ffffff;*/
+    position:absolute;
+    top: -10px;
+    right: -10px;
+}
+
+i.fas.fa-chevron-down {
+    font-size: 19px;
+    color: #007bff;
+    margin-left: 8px;
+}
+
+i.fas.fa-code-branch {
+    position: absolute;
+    font-size: 705px;
+    top: 11px;
+    right: 222px;
+    transform: rotate(133deg);
+    opacity: .1;
+    color: #0056b3;
+    text-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    /* text-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); */
+}
+
+.dashIcon {
+    opacity: 0.03 !important;
+}
+
+.fa-trash-alt {
+    float:right;
+    position: relative;
+    top: 0px;
+    right: 0px;
+}
+
+.jobTrash {
+    font-size: 16px;
+    margin-top: 13px;
+}
+
+.expTrash {
+     margin-right: 20px;
+}
+
+.card-header .btn-link , .card-header .fa-chevron-down{
+    color: black !important;
+}

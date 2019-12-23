@@ -1,0 +1,100 @@
+.timeline{
+    float:left;
+    display: inline-block;
+    vertical-align: top;
+    height: 77vh;
+    width: 15%;
+    min-height: 92vh;
+    transition: margin .25s ease-out;
+}
+
+
+fieldset {
+     display: inline-block;
+    vertical-align: top;
+    width:100% !important; /*timeline on right side of page */
+    overflow: auto;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 10px;
+    position:relative;
+    height: 91vh;
+}
+
+div.wrapper {
+    height: 100%;
+    padding-top: 64px;
+    padding-right: 30px;
+}
+
+.directionButton {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}
+
+.outerCard {
+    width: -moz-available;           /*Mozilla-based browsers */
+    width: -webkit-fill-available;   /* Webkit-based browsers */
+    width: stretch;
+    
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.pre-scrollable.cardPreScrollable {
+    vertical-align: top;
+    width: auto;
+    min-height: 88vh;
+    margin-top: 11px;
+    margin-left: 10px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    /* box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); */
+    
+    position: relative;
+}
+
+.card-body {
+    text-align:left;
+    padding: 30px;
+}
+
+
+.card-header {
+    text-align: center;
+}
+
+.submitButton {
+    margin-left:5px;
+    color: #6c757d !important;
+    border-color: #6c757d !important;
+}
+
+.submitButton:hover {
+    background-color: #007bff;
+    color:#ffffff !important;
+}
+
+.submitButton.disabled:hover, .submitButton:disabled:hover {
+    background-color:#ffffff;
+    color: #6c757d !important;
+}
+
+.disclaimer {
+    color:red;
+    margin-left: 10px;
+}
+
+.invalid {
+    border-color:red;
+}
+
+.form-control {
+    width: 83%;
+    display: inline-block;
+}
+    

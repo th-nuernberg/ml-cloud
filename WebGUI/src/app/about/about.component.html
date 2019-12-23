@@ -1,0 +1,65 @@
+<div id="outerWrapper">
+    <div id="aboutWrapper">
+        <h1>NNT - platform for machine learning</h1>
+        <p>
+            <div>
+                <h3>General information</h3>
+                <p>
+                    In recent years, the topic of artificial intelligence has moved into the focus of the population through constant progress. The power and wide range of applications of machine learning can be seen in many different areas, such as games, Go and StarCraft, in which computers are superior to their human counterparts, but also in other areas such as medicine and image processing. In the meantime, processors are even being developed that are specially optimized for machine learning.
+                    <br>
+                    <br>
+                    The use of artificial intelligence for own problems usually requires besides programming knowledge also a profound understanding of the actual processes during learning, which laymen do not possess. Due to this hurdle, the potential of machine learning remains inaccessible to a large group of people. An application that abstracts and simplifies the complexity of the topic would also enable users without technical knowledge to use machine learning and profit from it.
+                </p>
+            </div>
+            <div>
+                <h3>Objective</h3>
+                <p>
+                    The goal of this project work is the conception and realization of a system which enables laypersons without a profound understanding of machine learning to train artificial intelligence based on their own problems and data and to make predictions. A graphical user interface should serve as interface between system and user. Additionally, it should be possible for professional users to interact with the system without using the graphical user interface.
+                    <br>
+                    <br>
+                    It should be possible for the users to use own data sets, to select between different architectures and to parameterize these. The status of training and forecasting tasks should be visualized via the graphical user interface.
+                    <br>
+                    <br>
+                    The graphical user interface, different architectures as well as all components and configurations necessary for configuration, storage and execution have to be developed and implemented.
+                </p>
+            </div>
+            <div>
+                <h3>Resources</h3>
+                <p>
+                    Performing training and forecasting tasks requires a variety of information from the user. These entered data and their relation must be stored and evaluated in the background. For this purpose, various JSON data structures, referred to below as resources, were developed. The individual resources are explained below.
+                </p>
+                <h4>Dataset</h4>
+                <p>
+                    A record is a table, such as a csv file, that consists of multiple columns. The data it contains is the basis for performing training and forecasting tasks. The resource record encapsulates this table, assigns it a unique ID, and can also store the file name, for example.
+                </p>
+                <h4>View</h4>
+                <p>
+                    A view describes the structure of a data record. It contains the ID of the data record and defines the context in which the data is to be used for the individual columns. This can be either raw data that is to be used to learn contexts, or target values that represent the result of the context to be learned. The column names are also stored in the view. The column names are used to recognize compatible views. Compatible views are views that refer to different data records, but are otherwise structured identically.
+                </p>
+                <h4>Architecture</h4>
+                <p>
+                    Architectures are algorithms that can be selected by the user to perform training and forecasting tasks. These can be, for example, neural networks. Each architecture has parameters that influence the training. These parameters can be configured by the user before performing training tasks. By specifying meaningful values for the respective parameters and limiting them to certain value ranges, it is also possible for less experienced users to configure architectures.
+                </p>
+                <h4>Architecture Configuration</h4>
+                <p>
+                    The architecture selected by the user and the selected parameters are stored in an architecture configuration. The ID of an architecture configuration can therefore be used to reference exactly the combination of parameters and architecture on which, for example, a trained architecture is based.
+                </p>
+                <h4>Job</h4>
+                <p>
+                    A job is a combination of a view and architectural configuration created by the user. In addition, the job stores whether training or a prediction is to be made. Status messages, progress and log files are also stored in the job.
+                </p>
+                <h4>Experiment</h4>
+                <p>
+                    The experiment represents the highest level of abstraction of resources. It summarizes a list of jobs and allows the collective start of all contained jobs.
+                </p>
+            </div>
+            <div>
+                <h3>Conclusion</h3>
+                <p>
+                    Within the scope of this project, a system was developed which also enables non-experts to use machine learning. Via a graphical web interface own data sets can be uploaded and different parameters can be individually configured. By using REST and MQTT as interfaces, the different components are only loosely coupled and can be extended at will, thus achieving the goal of flexibility and good scalability.
+                    <br>
+                    This also allows professional users to connect their own software and automatically control the system. By encapsulating the components in docker containers, the distribution of the components over different computers was further simplified. In future versions, it would also be possible to extend the selection of existing architectures with a modular system that allows users to create and use new architectures with simple means.
+                </p>
+            </div>
+    </div>
+</div>

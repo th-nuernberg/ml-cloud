@@ -1,0 +1,363 @@
+body {
+  overflow: hidden !important;
+}
+
+body {
+    overflow: hidden;
+}
+
+
+h2 {
+    margin-top:-10px;
+    margin-left:5px;
+    background:white;
+}
+
+#sidebar-wrapper {
+    min-height: 93vh;
+  margin-left: -15rem;
+  -webkit-transition: margin .25s ease-out;
+  -moz-transition: margin .25s ease-out;
+  -o-transition: margin .25s ease-out;
+  transition: margin .25s ease-out;
+}
+
+#sidebar-wrapper .sidebar-heading {
+  padding: 0.875rem 1.25rem;
+  font-size: 1.2rem;
+}
+
+#sidebar-wrapper .list-group {
+  width: 30rem;
+}
+
+#page-content-wrapper {
+  min-width: 100vw;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+  margin-left: 0;
+}
+
+@media (min-width: 768px) {
+  #sidebar-wrapper {
+    margin-left: 0;
+  }
+
+  #page-content-wrapper {
+    min-width: 0;
+    width: 100%;
+  }
+
+  #wrapper.toggled #sidebar-wrapper {
+    margin-left: -15rem;
+  }
+}
+
+table.table.table-striped {
+    display: block;
+    height: 600px;
+    overflow-y: scroll;
+}
+
+fieldset {
+     display: inline-block;
+    vertical-align: top;
+    width: 80% !important;
+    overflow: auto;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 10px;
+    position:relative;
+}
+
+legend {
+    width:auto;
+}
+
+#uploadButtonDiv {
+    margin: 0 auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+#container {
+    position: relative;
+}
+
+div#sidebar-wrapper {
+    display: inline-block;
+    vertical-align: top;
+    height: 100%;
+    width: 18%;
+}
+
+div#wrapper {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    height: 100%;
+}
+
+html {
+    height: 100%;
+}
+
+#uploadButton {
+    opacity: 0;
+}
+
+.xColumn {
+    background-color: #676767;
+}
+
+.yColumn {
+    background-color: #d9d9d9;  
+}
+
+/*------- SIDEBAR -------- */ 
+
+.list-group {
+    border-radius:.25rem;
+    border: 1px solid rgba(0,0,0,.125);
+}
+
+.pre-scrollable.listPreScrollable {
+    min-height: 92vh;
+    width: 328px;
+}
+
+
+i.fas.fa-code-branch {
+    font-size: 24px;
+    float: left;
+    margin-right: 10px;
+}
+
+
+
+/* ------- PAGE CONTENT CARD ---------- */
+
+.card {
+    /*display: inline-block;
+    vertical-align: top;*/
+    /*width: 87rem;*/
+    /*overflow: auto;*/
+    
+    /*border: 1px solid black;
+    border-radius: 30px;
+    margin: 10px;
+    padding: 10px;*/
+    
+    /*position:relative;*/
+}
+
+.outerCard {
+    height:100%;
+}
+
+.pre-scrollable.cardPreScrollable {
+    vertical-align: top;
+    width: 87rem;
+    min-height: 92vh;
+}
+
+.card-body {
+    text-align:left;
+}
+
+.inner-card {
+    /*width: 700px;
+    left: 50%;*/
+    /*transform: translate(-50%);*/
+}
+
+.card.innerCard {
+    height: -webkit-fill-available;
+}
+
+.innerPreScrollable {
+    display: inline-block;
+    width: 47%;
+    max-height: 79vh;
+    height: 79vh;
+
+}
+
+.innerCard > .card-body {
+    padding: 0;
+    border: none;
+}
+
+.innerPreScrollable > .card.innerCard {
+    border: none;
+}
+
+.infoBox {
+    width:53%;
+}
+
+.pre-scrollable.innerPreScrollable {
+    padding: 20px;
+}
+
+#outerUploadButtonDiv {
+    display: inline-block;
+    vertical-align: top;
+    width: 87rem;
+    overflow: auto;
+    position: relative;
+}
+
+
+/* ------------------ CONFIG ----------------- */
+.input-group.mb-3:not(.nameFormControl) {
+    height: 66px;
+}
+
+.batch_size , .epochs , .validation_split, .shuffle {
+    position: relative;
+    top: -28px;
+}
+
+.batch_size, .epochs {
+    margin-left: 150px;
+}
+
+.custom-range {
+    width: 255px;
+    padding-top: 9px;
+}
+
+.range {
+    margin-bottom: 0;
+}
+
+.shuffle {
+    margin-left: 156px !important;
+}
+
+#shuffle {
+    width: 214px;
+}
+
+.validation_split {
+    margin-left: 151px;
+}
+
+#validation_split {
+    width: 244px;
+}
+
+.archNameLabel {
+    margin-bottom:10px;
+}
+
+.textInput{
+    /*margin-right: 5px;
+    margin-left: 5px;*/
+    width: 300px;
+    display: inline-block;
+}
+
+.mb-3, .my-3 {
+    margin-bottom: 0rem!important;
+}
+
+.input-group>.form-control {
+    width: 300px !important;
+    flex: unset;
+}
+
+.input-group-text {
+    width:150px;
+}
+
+#leftDiv {
+    display:inline-block;
+    width: 65%;
+}
+
+#rightDiv {
+    width:30%;
+    padding:30px;
+    display:inline-block;
+}
+
+.batch_size , .epochs , .validation_split, .shuffle {
+    position: relative;
+    top: -28px;
+}
+
+.batch_size, .epochs {
+    margin-left: 150px;
+}
+
+div#parameterDiv {
+    padding: 50px;
+}
+
+#uploadButtonDiv {
+    margin: 0 auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+#uploadButtonDiv > i.fas.fa-code-branch {
+    font-weight:900;
+    font-size: 169px;
+    color: grey;
+    padding:20px;
+    display: contents;
+}
+
+#uploadButtonDiv > i.fas.fa-code-branch:before {
+    text-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+p.mb-1 {
+    font-size: 14px;
+}
+
+@media (max-width:1518px) {
+    div#parameterDiv {
+        padding: 24px;
+    }
+    
+    .input-group-text {
+        font-size:13px;
+    }
+    
+    .input-group > .form-control {
+        width: 202px !important; 
+    }
+    
+    .infoBox {
+        width: 48% !important;
+    }
+    
+    .innerPreScrollable {
+        width: 52%;
+    }
+    
+    .custom-range {
+        width: 145px !important;
+    }
+    
+    .textInput {
+        width: 199px !important;
+    }
+}
+
+.nameFormControl {
+    margin-bottom: 1rem !important;
+}
