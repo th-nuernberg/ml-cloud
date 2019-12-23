@@ -1,6 +1,4 @@
 # IT_Projekt
-System: [![pipeline status](https://gitlab.com/DrDOIS/it_projekt/badges/master/pipeline.svg)](https://gitlab.com/DrDOIS/it_projekt/commits/master)
-
 ## Goal
 Developement of a distributed machine learning platform.
 For an detailed description of this project, its features and functionality [have a look here. (German)](doc/Description.md)
@@ -25,5 +23,5 @@ Requirements:
 
 For install instructions for the individual components have a look at the Dockerfile in the subfolders.
 
-Execute `docker-compose up` in the it_project folder. This will start an instance of the controller, worker, webgui, mongodb and mosquitto broker. 
+Execute `docker-compose up` to start an instance of the controller, worker, webgui, mongodb and mosquitto broker. 
 The webgui can be reached at 127.0.0.1:4200
